@@ -3,7 +3,7 @@ const { Schema, model } = require('mongoose');
 const { hendleMongooseError } = require('../helpers');
 
 const emailRegexp = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-const subscriptionList = ['starter', 'pro', 'business'];
+const passwordRegexp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/;
 
 const userSchema = new Schema(
   {
@@ -21,30 +21,13 @@ const userSchema = new Schema(
       required: [true, 'Email is required'],
       unique: true,
     },
-    subscription: {
-      type: String,
-      enum: subscriptionList,
-      default: 'starter',
-    },
     token: {
       type: String,
       default: '',
     },
-    avatarURL: {
-      type: String,
-      required: true,
-    },
-    verify: {
-      type: Boolean,
-      default: false,
-    },
-    verificationToken: {
-      type: String,
-      required: [true, 'Verify token is required'],
-    },
-    // verificationCode: {
+    // avatarURL: {
     //   type: String,
-    //   default: '',
+    //   required: true,
     // },
   },
   { versionKey: false, timestamps: true }
@@ -55,7 +38,19 @@ userSchema.post('save', hendleMongooseError);
 const registerSchema = Joi.object({
   name: Joi.string().required(),
   email: Joi.string().pattern(emailRegexp).required(),
-  password: Joi.string().min(6).required(),
+  password: Joi.string()
+    .min(6)
+    .max(16)
+    .pattern(passwordRegexp)
+    .required()
+    .messages({
+      'string.base': 'Пароль повинен бути рядком',
+      'string.min': 'Пароль повинен містити принаймні {#limit} символів',
+      'string.max': 'Пароль не повинен перевищувати {#limit} символів',
+      'string.pattern.base':
+        'Пароль повинен містити принаймні 1 літеру верхнього регістру, 1 літеру нижнього регістру та 1 цифру',
+      'any.required': 'Пароль є обовʼязковим полем',
+    }),
 });
 
 const emailSchema = Joi.object({
@@ -64,19 +59,24 @@ const emailSchema = Joi.object({
 
 const loginSchema = Joi.object({
   email: Joi.string().pattern(emailRegexp).required(),
-  password: Joi.string().min(6).required(),
-});
-
-const updateSubscriptionSchema = Joi.object({
-  subscription: Joi.string()
-    .valid(...subscriptionList)
-    .required(),
+  password: Joi.string()
+    .min(6)
+    .max(16)
+    .pattern(passwordRegexp)
+    .required()
+    .messages({
+      'string.base': 'Пароль повинен бути рядком',
+      'string.min': 'Пароль повинен містити принаймні {#limit} символів',
+      'string.max': 'Пароль не повинен перевищувати {#limit} символів',
+      'string.pattern.base':
+        'Пароль повинен містити принаймні 1 літеру верхнього регістру, 1 літеру нижнього регістру та 1 цифру',
+      'any.required': 'Пароль є обовʼязковим полем',
+    }),
 });
 
 const schemas = {
   registerSchema,
   loginSchema,
-  updateSubscriptionSchema,
   emailSchema,
 };
 
