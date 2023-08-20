@@ -1,0 +1,63 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "version": "2.0.0",
+    "title": "Swagger test",
+    "descrioption": "Show",
+    "license": {
+      "name": "MIT",
+      "url": ""
+    }
+  },
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "servers": [{ "uri": "" }],
+  "tags": [
+    {
+      "name": "Auth",
+      "descrioption": "Authorization endpoints"
+    }
+  ],
+
+  "paths": {
+    "/api/auth/registration": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User registration",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "descrioption": "Rgistartion's object",
+          "required": "true",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$href": "./models"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "descrioption": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$href": ""
+                }
+              }
+            }
+          },
+          "400": {
+            "descrioption": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "descrioption": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    }
+  }
+}
