@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+require('./models/category');
+
 const app = require('./app');
 
 const { DB_HOST, PORT = 4000 } = process.env;

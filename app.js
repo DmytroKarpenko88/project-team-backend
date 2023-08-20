@@ -10,6 +10,7 @@ const swaggerDocument = require('./swagger.json');
 const authRouter = require('./routes/api/auth');
 const contactsRouter = require('./routes/api/contacts');
 const usersRouter = require('./routes/api/users');
+const noticesRouter = require('./routes/api/notices');
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use(express.static('public'));
 app.use('/api/auth', authRouter);
 app.use('/api/contacts', contactsRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/notices', noticesRouter);
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use((req, res) => {
