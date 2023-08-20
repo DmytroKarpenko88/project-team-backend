@@ -3,7 +3,7 @@
   "info": {
     "version": "2.0.0",
     "title": "Swagger test",
-    "descrioption": "Show",
+    "description": "Show",
     "license": {
       "name": "MIT",
       "url": ""
@@ -15,7 +15,7 @@
   "tags": [
     {
       "name": "Auth",
-      "descrioption": "Authorization endpoints"
+      "description": "Authorization endpoints"
     }
   ],
 
@@ -25,38 +25,208 @@
         "tags": ["Auth"],
         "summary": "User registration",
         "parameters": [],
-        "security": [{ "Bearer": [] }],
         "requestBody": {
-          "descrioption": "Rgistartion's object",
-          "required": "true",
+          "description": "Registartion's object",
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$href": "./models"
+                "$ref": "#/components/schemas/RegistrationRequest"
               }
             }
           }
         },
         "responses": {
           "201": {
-            "descrioption": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$href": ""
-                }
-              }
-            }
+            "description": "Created"
           },
           "400": {
-            "descrioption": "Bad request (invalid request body)",
-            "content": {}
+            "description": "Bad request (invalid request body)"
           },
-          "409": {
-            "descrioption": "Provided email already exists",
-            "content": {}
+          "500": {
+            "description": "Server error"
           }
         }
+      }
+    },
+    "api/auth/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User login",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Rgistartion's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User is logged in"
+          },
+
+          "400": {
+            "description": "Login Error"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "api/auth/logout": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User logout",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "Bearer your_token_here"
+            }
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "The user is logged out."
+          },
+          "401": {
+            "description": "Missing header with authorization token."
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "api/users/curren": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "Current user",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "Bearer your_token_here"
+            }
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Information found"
+          },
+          "401": {
+            "description": "Missing header with authorization token."
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    }
+  },
+
+  "components": {
+    "schemas": {
+      "RegistrationRequest": {
+        "type": "object",
+        "required": ["name", "email", "password"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Dima"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email",
+            "pattern": "/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "minLength": 6,
+            "maxLength": 16,
+            "pattern": "/^(?=.*[a-z])(?=.*[A-Z])(?=.*d).+$/",
+            "example": "qWerty123"
+          }
+        }
+      },
+      "RegistartionResponse": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Dima"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          }
+        }
+      },
+      "LoginRequest": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "pattern": "/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "minLength": 6,
+            "maxLength": 16,
+            "pattern": "/^(?=.*[a-z])(?=.*[A-Z])(?=.*d).+$/",
+            "example": "qWerty123"
+          }
+        }
+      }
+    },
+    "responses": {
+      "Ok": {
+        "description": "Successful operation",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/RegistrationRequest"
+            }
+          }
+        }
+      },
+      "BadRequest": {
+        "description": "Bad request (invalid request body)"
+      },
+      "AlreadyReserved": {
+        "description": "Provided email already exists"
+      },
+      "ServerError": {
+        "description": "Server error"
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }
