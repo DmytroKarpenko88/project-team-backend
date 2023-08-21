@@ -1,4 +1,5 @@
 const express = require('express');
+
 const { authenticate, validateBody, upload } = require('../../middlewares');
 
 const ctrl = require('../../controllers/users');
@@ -12,6 +13,13 @@ router.post(
   '/verify',
   validateBody(schemas.emailSchema),
   ctrl.resendVerifyEmail
+);
+
+router.patch(
+  '/ubdateProfile',
+  authenticate,
+  validateBody(schemas.ubdateProfileSchema),
+  ctrl.updateProfile
 );
 
 router.patch(

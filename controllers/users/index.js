@@ -3,10 +3,12 @@ const getCurrent = require('./getCurrent');
 const resendVerifyEmail = require('./resendVerifyEmail');
 const updateAvatar = require('./updateAvatar');
 const updateSubscription = require('./updateSubscription');
+const updateProfile = require('./ubdateProfile');
 
 module.exports = {
   getCurrent: ctrlWrapper(getCurrent),
   updateSubscription: ctrlWrapper(updateSubscription),
   updateAvatar: ctrlWrapper(updateAvatar),
   resendVerifyEmail: ctrlWrapper(resendVerifyEmail),
+  updateProfile: ctrlWrapper(updateProfile),
 };

@@ -11,7 +11,7 @@
   },
   "consumes": ["application/json"],
   "produces": ["application/json"],
-  "servers": [{ "uri": "" }],
+  "servers": [{ "uri": "https://team-project-backend-881k.onrender.com" }],
   "tags": [
     {
       "name": "Auth",
@@ -20,7 +20,7 @@
   ],
 
   "paths": {
-    "/api/auth/registration": {
+    "/api/auth/register": {
       "post": {
         "tags": ["Auth"],
         "summary": "User registration",
@@ -38,7 +38,14 @@
         },
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistartionResponse"
+                }
+              }
+            }
           },
           "400": {
             "description": "Bad request (invalid request body)"
@@ -166,20 +173,6 @@
           }
         }
       },
-      "RegistartionResponse": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "example": "Dima"
-          },
-          "email": {
-            "type": "string",
-            "description": "User's email",
-            "format": "email"
-          }
-        }
-      },
       "LoginRequest": {
         "type": "object",
         "required": ["email", "password"],
@@ -197,6 +190,20 @@
             "maxLength": 16,
             "pattern": "/^(?=.*[a-z])(?=.*[A-Z])(?=.*d).+$/",
             "example": "qWerty123"
+          }
+        }
+      },
+      "RegistartionResponse": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Dima"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
           }
         }
       }
