@@ -11,7 +11,7 @@
   },
   "consumes": ["application/json"],
   "produces": ["application/json"],
-  "servers": [{ "uri": "https://team-project-backend-881k.onrender.com" }],
+  "servers": [{ "url": "https://team-project-backend-881k.onrender.com" }],
   "tags": [
     {
       "name": "Auth",
