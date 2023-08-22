@@ -27,13 +27,6 @@ const userSchema = new Schema(
       required: [true, 'Email is required'],
       unique: true,
     },
-    birthday: {
-      type: Date,
-      required: true,
-      match: dateRegexp,
-      default: null,
-    },
-
     token: {
       type: String,
       default: '',
