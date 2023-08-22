@@ -1,27 +1,39 @@
 const Joi = require('joi');
+const { isValid, parse } = require('date-fns');
 const { Schema, model } = require('mongoose');
 const { hendleMongooseError } = require('../helpers');
 
 const emailRegexp = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
 const passwordRegexp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/;
+const dateRegexp = /^\d{2}-\d{2}-\d{4}$/;
+console.log('dateRegexp:', dateRegexp);
 
 const userSchema = new Schema(
   {
     name: {
       type: String,
     },
+
     password: {
       type: String,
       minlength: 6,
       match: passwordRegexp,
       required: [true, 'Set password for user'],
     },
+
     email: {
       type: String,
       match: emailRegexp,
       required: [true, 'Email is required'],
       unique: true,
     },
+    birthday: {
+      type: Date,
+      required: true,
+      match: dateRegexp,
+      default: null,
+    },
+
     token: {
       type: String,
       default: '',
@@ -55,7 +67,8 @@ const registerSchema = Joi.object({
 });
 
 const emailSchema = Joi.object({
-  email: Joi.string().pattern(emailRegexp).required(),
+  name: Joi.string(),
+  email: Joi.string().pattern(emailRegexp),
 });
 
 const loginSchema = Joi.object({
@@ -75,10 +88,17 @@ const loginSchema = Joi.object({
     }),
 });
 
+const ubdateProfileSchema = Joi.object({
+  name: Joi.string(),
+  email: Joi.string().pattern(emailRegexp),
+  birthday: Joi.string(),
+});
+
 const schemas = {
   registerSchema,
   loginSchema,
   emailSchema,
+  ubdateProfileSchema,
 };
 
 const User = model('user', userSchema);

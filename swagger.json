@@ -11,7 +11,7 @@
   },
   "consumes": ["application/json"],
   "produces": ["application/json"],
-  "servers": [{ "uri": "" }],
+  "servers": [{ "url": "https://team-project-backend-881k.onrender.com" }],
   "tags": [
     {
       "name": "Auth",
@@ -42,7 +42,14 @@
         },
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistartionResponse"
+                }
+              }
+            }
           },
           "400": {
             "description": "Bad request (invalid request body)"
@@ -164,7 +171,7 @@
         },
         "responses": {
           "201": {
-            "description":"Successful operation",
+            "description": "Successful operation",
             "content": {
               "application/json": {
                 "schema": {
@@ -174,7 +181,7 @@
             }
           },
           "400": {
-            "description":"Bad request (invalid request body)"
+            "description": "Bad request (invalid request body)"
           }
         }
       }
@@ -207,20 +214,6 @@
           }
         }
       },
-      "RegistartionResponse": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "example": "Dima"
-          },
-          "email": {
-            "type": "string",
-            "description": "User's email",
-            "format": "email"
-          }
-        }
-      },
       "LoginRequest": {
         "type": "object",
         "required": ["email", "password"],
@@ -241,6 +234,7 @@
           }
         }
       },
+
       "AllNoticesGetResponse": {
         "type": "array",
         "items": {
@@ -312,7 +306,15 @@
       },
       "NoticesPostRequest": {
         "type": "object",
-        "required": ["title", "name", "sex", "_category", "place", "birthday", "type"],
+        "required": [
+          "title",
+          "name",
+          "sex",
+          "_category",
+          "place",
+          "birthday",
+          "type"
+        ],
         "properties": {
           "title": {
             "type": "string",
@@ -429,6 +431,20 @@
           },
           "updatedAt": {
             "type": "string"
+          }
+        }
+      },
+      "RegistartionResponse": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Dima"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
           }
         }
       }
