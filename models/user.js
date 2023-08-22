@@ -6,6 +6,7 @@ const { hendleMongooseError } = require('../helpers');
 const emailRegexp = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
 const passwordRegexp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/;
 const dateRegexp = /^\d{2}-\d{2}-\d{4}$/;
+console.log('dateRegexp:', dateRegexp);
 
 const userSchema = new Schema(
   {
