@@ -1,12 +1,47 @@
+// const cloudinary = require('cloudinary').v2;
+// const { CloudinaryStorage } = require('multer-storage-cloudinary');
+// const multer = require('multer');
+// require('dotenv').config();
+
+// const { CLOUDINARY_NAME, CLOUDINARY_KEY, CLOUDINARY_SECRET } = process.env;
+
+// cloudinary.config({
+//   cloud_name: CLOUDINARY_NAME,
+//   api_key: CLOUDINARY_KEY,
+//   api_secret: CLOUDINARY_SECRET,
+// });
+
+//upload
 const cloudinary = require('cloudinary').v2;
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const multer = require('multer');
-require('dotenv').config();
-
-const { CLOUDINARY_NAME, CLOUDINARY_KEY, CLOUDINARY_SECRET } = process.env;
 
 cloudinary.config({
-  cloud_name: CLOUDINARY_NAME,
-  api_key: CLOUDINARY_KEY,
-  api_secret: CLOUDINARY_SECRET,
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_KEY,
+  api_secret: process.env.CLOUDINARY_SECRET,
 });
+
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: async (req, file) => {
+    // Determine the folder based on file properties or request data
+    let folder;
+    if (file.fieldname === 'avatarURL') {
+      folder = 'Avatars';
+    } else if (file.fieldname === 'documents') {
+      folder = 'documents';
+    } else {
+      folder = 'misc';
+    }
+    return {
+      folder: folder,
+      allowed_formats: ['jpg', 'png'], // Adjust the allowed formats as needed
+      public_id: file.originalname, // Use original filename as the public ID
+    };
+  },
+});
+
+const upload = multer({ storage });
+
+module.exports = upload;

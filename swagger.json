@@ -24,7 +24,7 @@
   ],
 
   "paths": {
-    "api/auth/registration": {
+    "/api/auth/registration": {
       "post": {
         "tags": ["Auth"],
         "summary": "User registration",
@@ -60,7 +60,7 @@
         }
       }
     },
-    "api/auth/login": {
+    "/api/auth/login": {
       "post": {
         "tags": ["Auth"],
         "summary": "User login",
@@ -91,7 +91,7 @@
         }
       }
     },
-    "api/auth/logout": {
+    "/api/auth/logout": {
       "post": {
         "tags": ["Auth"],
         "summary": "User logout",
@@ -120,7 +120,7 @@
         }
       }
     },
-    "api/users/curren": {
+    "/api/users/current": {
       "get": {
         "tags": ["Auth"],
         "summary": "Current user",
@@ -145,6 +145,47 @@
           },
           "500": {
             "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/auth/ubdateProfile": {
+      "patch": {
+        "tags": ["Auth"],
+        "summary": "Ubdating user profile",
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "Bearer your_token_here"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Registartion's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UbdatingProfileRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UbdatingProfileRequest"
+                }
+              }
+            }
           }
         }
       }
@@ -231,6 +272,39 @@
             "maxLength": 16,
             "pattern": "/^(?=.*[a-z])(?=.*[A-Z])(?=.*d).+$/",
             "example": "qWerty123"
+          }
+        }
+      },
+      "UbdatingProfileRequest": {
+        "type": "object",
+        "required": ["email", "birthday"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Dima"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "pattern": "/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/",
+            "format": "email"
+          },
+          "birthday": {
+            "type": "string",
+            "description": "User's birthday",
+            "example": "11-05-2005"
+          },
+          "phone": {
+            "type": "string",
+            "description": "User's phones",
+            "pattern": "/^(+380d{9})$/",
+            "example": "+380000000000"
+          },
+          "city": {
+            "type": "string",
+            "description": "User's city",
+            "pattern": "/^[A-Z][A-Za-zs]*$/",
+            "example": "Kyiv"
           }
         }
       },
