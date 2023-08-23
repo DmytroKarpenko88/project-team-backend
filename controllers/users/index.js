@@ -4,6 +4,7 @@ const resendVerifyEmail = require('./resendVerifyEmail');
 const updateAvatar = require('./updateAvatar');
 const updateSubscription = require('./updateSubscription');
 const updateProfile = require('./ubdateProfile');
+const getUserInformation = require('./getUsetInformation');
 
 module.exports = {
   getCurrent: ctrlWrapper(getCurrent),
@@ -11,4 +12,5 @@ module.exports = {
   updateAvatar: ctrlWrapper(updateAvatar),
   resendVerifyEmail: ctrlWrapper(resendVerifyEmail),
   updateProfile: ctrlWrapper(updateProfile),
+  getUserInformation: ctrlWrapper(getUserInformation),
 };

@@ -9,13 +9,17 @@
       "url": ""
     }
   },
-  "consumes": ["application/json"],
+  "consumes": ["application/json", " multipart/form-data"],
   "produces": ["application/json"],
   "servers": [{ "url": "https://team-project-backend-881k.onrender.com" }],
   "tags": [
     {
       "name": "Auth",
       "description": "Authorization endpoints"
+    },
+    {
+      "name": "User",
+      "description": "User endpoints"
     },
     {
       "name": "Notices",
@@ -149,9 +153,39 @@
         }
       }
     },
-    "/api/auth/ubdateProfile": {
+    "/api/users/profile": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Get user information",
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "Bearer your_token_here"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UbdatingProfileRequest"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/users/ubdateProfile": {
       "patch": {
-        "tags": ["Auth"],
+        "tags": ["User"],
         "summary": "Ubdating user profile",
         "security": [{ "Bearer": [] }],
         "parameters": [
@@ -169,7 +203,7 @@
           "description": "Registartion's object",
           "required": true,
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
                 "$ref": "#/components/schemas/UbdatingProfileRequest"
               }
@@ -277,11 +311,16 @@
       },
       "UbdatingProfileRequest": {
         "type": "object",
-        "required": ["email", "birthday"],
+        "required": ["email", "birthday", "avatarURL"],
         "properties": {
           "name": {
             "type": "string",
             "example": "Dima"
+          },
+          "avatarURL": {
+            "type": "string",
+            "format": "binary",
+            "description": "maximum size 3MB"
           },
           "email": {
             "type": "string",
