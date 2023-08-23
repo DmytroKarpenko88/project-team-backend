@@ -39,7 +39,6 @@ const userSchema = new Schema(
     },
     avatarURL: {
       type: String,
-      required: true,
     },
     birthday: {
       type: String,
@@ -104,8 +103,8 @@ const loginSchema = Joi.object({
 
 const ubdateProfileSchema = Joi.object({
   name: Joi.string(),
-  email: Joi.string().pattern(emailRegexp).required(),
-  birthday: Joi.string().pattern(dateRegExp).required(),
+  email: Joi.string().pattern(emailRegexp),
+  birthday: Joi.string().pattern(dateRegExp),
   phone: Joi.string().pattern(phoneRegExp),
   city: Joi.string().pattern(cityRegExp),
 });
