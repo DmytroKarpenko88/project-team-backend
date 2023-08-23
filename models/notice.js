@@ -45,12 +45,11 @@ const noticeSchema = new Schema(
     describe: {
       type: String,
     },
-
-    // owner: {
-    //   type: Schema.Types.ObjectId,
-    //   ref: 'user',
-    //   required: true,
-    // },
+    _owner: {
+      type: Schema.Types.ObjectId,
+      ref: 'user',
+      required: true,
+    },
   },
   {
     versionKey: false,
