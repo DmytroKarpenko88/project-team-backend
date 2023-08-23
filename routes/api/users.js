@@ -3,7 +3,6 @@ const express = require('express');
 const {
   authenticate,
   validateBody,
-  upload,
   cloudUpload,
 } = require('../../middlewares');
 
@@ -14,24 +13,12 @@ const router = express.Router();
 
 router.get('/current', authenticate, ctrl.getCurrent);
 
+router.get('/profile', authenticate, ctrl.getUserInformation);
+
 router.post(
   '/verify',
   validateBody(schemas.emailSchema),
   ctrl.resendVerifyEmail
-);
-
-router.patch(
-  '/subscription',
-  authenticate,
-  validateBody(schemas.updateSubscriptionSchema),
-  ctrl.updateSubscription
-);
-
-router.patch(
-  '/avatars',
-  authenticate,
-  upload.single('avatar'),
-  ctrl.updateAvatar
 );
 
 router.patch(
