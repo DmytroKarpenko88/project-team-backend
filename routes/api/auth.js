@@ -6,11 +6,7 @@ const ctrl = require('../../controllers/auth');
 const router = express.Router();
 
 // signup
-router.post(
-  '/registration',
-  validateBody(schemas.registerSchema),
-  ctrl.register
-);
+router.post('/register', validateBody(schemas.registerSchema), ctrl.register);
 
 // router.get('/verify/:verificationCode', ctrl.verifyEmail);
 router.get('/verify/:verificationToken', ctrl.verifyEmail);
