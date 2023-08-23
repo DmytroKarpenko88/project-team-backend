@@ -10,10 +10,14 @@ const updateProfile = async (req, res) => {
     throw HttpError(400, 'missing field favorite');
   }
 
-  const result = await User.findByIdAndUpdate(_id, body, {
-    new: true,
-    runValidators: true,
-  });
+  const result = await User.findByIdAndUpdate(
+    _id,
+    { ...body, avatarURL: req.file.path },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
 
   if (!result) {
     throw HttpError(404, 'Not found');
