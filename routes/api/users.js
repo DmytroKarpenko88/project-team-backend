@@ -13,6 +13,7 @@ const router = express.Router();
 
 router.get('/current', authenticate, ctrl.getCurrent);
 
+router.get('/current/notices', authenticate, ctrl.getNoticesByAuthor);
 router.get('/profile', authenticate, ctrl.getUserInformation);
 
 router.post(
