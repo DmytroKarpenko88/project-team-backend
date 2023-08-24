@@ -2,8 +2,8 @@ const { ctrlWrapper } = require("../../helpers");
 const { Notice } = require("../../models/notice");
 
 const getNoticesByAuthor = async (req, res) => {
-  const result = await Notice.find();
-  console.log('req.user: ', req.user);
+  const {_id: _owner} = req.user
+  const result = await Notice.find({_owner});
   res.json(result);
 }
 
