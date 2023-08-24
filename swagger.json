@@ -153,6 +153,13 @@
         }
       }
     },
+    "/api/users/current/notices": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Current user's notices",
+        "security": [{ "Bearer": [] }]
+      }
+    },
     "/api/users/profile": {
       "get": {
         "tags": ["User"],
