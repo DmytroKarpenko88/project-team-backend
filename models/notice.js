@@ -29,9 +29,12 @@ const noticeSchema = new Schema(
     photo: {
       type: String,
     },
-    place: {
+    location: {
       type: String,
       required: [true, 'place is required'],
+    },
+    price: {
+      type: Number,
     },
     birthday: {
       type: String,

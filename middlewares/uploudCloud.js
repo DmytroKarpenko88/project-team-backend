@@ -17,8 +17,8 @@ const storage = new CloudinaryStorage({
     let folder;
     if (file.fieldname === 'avatarURL') {
       folder = 'Avatars';
-    } else if (file.fieldname === 'documents') {
-      folder = 'documents';
+    } else if (file.fieldname === 'petURL') {
+      folder = 'petURL';
     } else {
       folder = 'misc';
     }
