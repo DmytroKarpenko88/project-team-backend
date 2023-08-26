@@ -333,25 +333,25 @@
             "description": "Pet deleted successfully"
           }
         }
-      },
-      "/api/notices/{idNotice}": {
-        "get": {
-          "tags": ["Notices"],
-          "summary": "Getting one notice by ID",
-          "responses": {
-            "200": {
-              "description": "Successful operation",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/NoticesPostResponse"
-                  }
+      }
+    },
+    "/api/notices/{idNotice}": {
+      "get": {
+        "tags": ["Notices"],
+        "summary": "Getting one notice by ID",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoticesPostResponse"
                 }
               }
-            },
-            "404": {
-              "description": "Not Found"
             }
+          },
+          "404": {
+            "description": "Not Found"
           }
         }
       }
@@ -442,38 +442,9 @@
                   "example": "Kyiv"
                 }
               }
-            },
-            "pets": {
-              "properties": {
-                "name": {
-                  "type": "string",
-                  "example": "Archi"
-                },
-                "petURL": {
-                  "type": "string",
-                  "format": "binary",
-                  "description": "maximum size 3MB"
-                },
-                "birthday": {
-                  "type": "string",
-                  "description": "User's birthday",
-                  "example": "11-05-2005"
-                },
-                "type": {
-                  "type": "string",
-                  "minLength": 2,
-                  "maxLength": 16,
-                  "example": "dog"
-                },
-                "describe": {
-                  "type": "string",
-                  "maxLength": 120
-                }
-              }
             }
           }
         },
-
         "AllNoticesGetResponse": {
           "type": "array",
           "items": {
