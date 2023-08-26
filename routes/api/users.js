@@ -36,4 +36,11 @@ router.delete(
   ctrl.deleteNoticesByAuthor
 );
 
+// router.patch(
+router.get(
+  '/current/favorits/:idNotice',
+  authenticate,
+  ctrl.addFavoriteNotice
+);
+
 module.exports = router;

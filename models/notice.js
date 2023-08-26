@@ -22,10 +22,6 @@ const noticeSchema = new Schema(
       ref: 'category',
       required: [true, '_category is required'],
     },
-    favorite: {
-      type: Boolean,
-      default: false,
-    },
     photo: {
       type: String,
     },
