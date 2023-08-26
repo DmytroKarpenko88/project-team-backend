@@ -38,6 +38,8 @@ const userSchema = new Schema(
     },
     avatarURL: {
       type: String,
+      default:
+        'https://res.cloudinary.com/dtwrxerft/image/upload/v1692986384/Avatars/Photo_default_messyh.png',
     },
     birthday: {
       type: String,
