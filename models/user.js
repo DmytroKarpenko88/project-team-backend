@@ -56,6 +56,11 @@ const userSchema = new Schema(
       match: cityRegExp,
       default: null,
     },
+    
+    favorites: {
+      type: [Schema.Types.ObjectId],
+      default: [],
+    },
   },
   { versionKey: false, timestamps: true }
 );
