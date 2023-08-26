@@ -290,20 +290,25 @@
         }
       }
     },
-    "/api/pets/delete/:{petId}": {
+    "/api/pets/delete/{petId}": {
       "delete": {
         "tags": ["Pets"],
-        "summary": "Getting all notices",
+        "summary": "Delete pet by id",
         "security": [{ "Bearer": [] }],
-        "requestBody": {
-          "description": "Registartion's object",
-          "required": true,
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "$ref": "#/components/schemas/pets"
-              }
+        "parameters": [
+          {
+            "in": "params",
+            "name": "petId",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
+          }
+        ],
+        "responses": {
+          "200": {
+            "code": 200,
+            "description": "Pet deleted successfully"
           }
         }
       }
@@ -360,37 +365,69 @@
         "type": "object",
         "required": ["email", "birthday", "avatarURL"],
         "properties": {
-          "name": {
-            "type": "string",
-            "example": "Dima"
+          "data": {
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "Dima"
+              },
+              "avatarURL": {
+                "type": "string",
+                "format": "binary",
+                "description": "maximum size 3MB"
+              },
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "pattern": "/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/",
+                "format": "email"
+              },
+              "birthday": {
+                "type": "string",
+                "description": "User's birthday",
+                "example": "11-05-2005"
+              },
+              "phone": {
+                "type": "string",
+                "description": "User's phones",
+                "pattern": "/^+38(0d{2})d{3}-d{2}-d{2}$/",
+                "example": "+38(000)000-00-00"
+              },
+              "city": {
+                "type": "string",
+                "description": "User's city",
+                "pattern": "/^[A-Z][A-Za-zs]*$/",
+                "example": "Kyiv"
+              }
+            }
           },
-          "avatarURL": {
-            "type": "string",
-            "format": "binary",
-            "description": "maximum size 3MB"
-          },
-          "email": {
-            "type": "string",
-            "description": "User's email",
-            "pattern": "/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/",
-            "format": "email"
-          },
-          "birthday": {
-            "type": "string",
-            "description": "User's birthday",
-            "example": "11-05-2005"
-          },
-          "phone": {
-            "type": "string",
-            "description": "User's phones",
-            "pattern": "/^+38(0d{2})d{3}-d{2}-d{2}$/",
-            "example": "+380000000000"
-          },
-          "city": {
-            "type": "string",
-            "description": "User's city",
-            "pattern": "/^[A-Z][A-Za-zs]*$/",
-            "example": "Kyiv"
+          "pets": {
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "Archi"
+              },
+              "petURL": {
+                "type": "string",
+                "format": "binary",
+                "description": "maximum size 3MB"
+              },
+              "birthday": {
+                "type": "string",
+                "description": "User's birthday",
+                "example": "11-05-2005"
+              },
+              "type": {
+                "type": "string",
+                "minLength": 2,
+                "maxLength": 16,
+                "example": "dog"
+              },
+              "describe": {
+                "type": "string",
+                "maxLength": 120
+              }
+            }
           }
         }
       },
