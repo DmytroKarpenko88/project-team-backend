@@ -261,7 +261,9 @@
       "get": {
         "tags": ["Notices"],
         "summary": "Getting all notices"
-      },
+      }
+    },
+    "/api": {
       "post": {
         "tags": ["Notices"],
         "summary": "Adding new notice",
@@ -309,6 +311,18 @@
               }
             }
           }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/pets"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -333,281 +347,118 @@
             "description": "Pet deleted successfully"
           }
         }
-      },
-      "/api/notices/{idNotice}": {
-        "get": {
-          "tags": ["Notices"],
-          "summary": "Getting one notice by ID",
-          "responses": {
-            "200": {
-              "description": "Successful operation",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/NoticesPostResponse"
-                  }
+      }
+    },
+    "/api/notices/{idNotice}": {
+      "get": {
+        "tags": ["Notices"],
+        "summary": "Getting one notice by ID",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoticesPostResponse"
                 }
               }
-            },
-            "404": {
-              "description": "Not Found"
             }
+          },
+          "404": {
+            "description": "Not Found"
           }
         }
       }
-    },
+    }
+  },
 
-    "components": {
-      "schemas": {
-        "RegistrationRequest": {
-          "type": "object",
-          "required": ["name", "email", "password"],
-          "properties": {
-            "name": {
-              "type": "string",
-              "example": "Dima"
-            },
-            "email": {
-              "type": "string",
-              "description": "User's email",
-              "format": "email",
-              "pattern": "/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/"
-            },
-            "password": {
-              "type": "string",
-              "description": "User's password",
-              "minLength": 6,
-              "maxLength": 16,
-              "pattern": "/^(?=.*[a-z])(?=.*[A-Z])(?=.*d).+$/",
-              "example": "qWerty123"
-            }
+  "components": {
+    "schemas": {
+      "RegistrationRequest": {
+        "type": "object",
+        "required": ["name", "email", "password"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Dima"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email",
+            "pattern": "/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "minLength": 6,
+            "maxLength": 16,
+            "pattern": "/^(?=.*[a-z])(?=.*[A-Z])(?=.*d).+$/",
+            "example": "qWerty123"
           }
-        },
-        "LoginRequest": {
-          "type": "object",
-          "required": ["email", "password"],
-          "properties": {
-            "email": {
-              "type": "string",
-              "description": "User's email",
-              "pattern": "/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/",
-              "format": "email"
-            },
-            "password": {
-              "type": "string",
-              "description": "User's password",
-              "minLength": 6,
-              "maxLength": 16,
-              "pattern": "/^(?=.*[a-z])(?=.*[A-Z])(?=.*d).+$/",
-              "example": "qWerty123"
-            }
+        }
+      },
+      "LoginRequest": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "pattern": "/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "minLength": 6,
+            "maxLength": 16,
+            "pattern": "/^(?=.*[a-z])(?=.*[A-Z])(?=.*d).+$/",
+            "example": "qWerty123"
           }
-        },
-        "UbdatingProfileRequest": {
-          "type": "object",
-          "required": ["email", "birthday", "avatarURL"],
-          "properties": {
-            "data": {
-              "properties": {
-                "name": {
-                  "type": "string",
-                  "example": "Dima"
-                },
-                "avatarURL": {
-                  "type": "string",
-                  "format": "binary",
-                  "description": "maximum size 3MB"
-                },
-                "email": {
-                  "type": "string",
-                  "description": "User's email",
-                  "pattern": "/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/",
-                  "format": "email"
-                },
-                "birthday": {
-                  "type": "string",
-                  "description": "User's birthday",
-                  "example": "11-05-2005"
-                },
-                "phone": {
-                  "type": "string",
-                  "description": "User's phones",
-                  "pattern": "/^+38(0d{2})d{3}-d{2}-d{2}$/",
-                  "example": "+38(000)000-00-00"
-                },
-                "city": {
-                  "type": "string",
-                  "description": "User's city",
-                  "pattern": "/^[A-Z][A-Za-zs]*$/",
-                  "example": "Kyiv"
-                }
-              }
-            },
-            "pets": {
-              "properties": {
-                "name": {
-                  "type": "string",
-                  "example": "Archi"
-                },
-                "petURL": {
-                  "type": "string",
-                  "format": "binary",
-                  "description": "maximum size 3MB"
-                },
-                "birthday": {
-                  "type": "string",
-                  "description": "User's birthday",
-                  "example": "11-05-2005"
-                },
-                "type": {
-                  "type": "string",
-                  "minLength": 2,
-                  "maxLength": 16,
-                  "example": "dog"
-                },
-                "describe": {
-                  "type": "string",
-                  "maxLength": 120
-                }
-              }
-            }
+        }
+      },
+      "UbdatingProfileRequest": {
+        "type": "object",
+        "required": ["email", "birthday", "avatarURL"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Dima"
+          },
+          "avatarURL": {
+            "type": "string",
+            "format": "binary",
+            "description": "maximum size 3MB"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "pattern": "/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/",
+            "format": "email"
+          },
+          "birthday": {
+            "type": "string",
+            "description": "User's birthday",
+            "example": "11-05-2005"
+          },
+          "phone": {
+            "type": "string",
+            "description": "User's phones",
+            "pattern": "/^+38(0d{2})d{3}-d{2}-d{2}$/",
+            "example": "+38(000)000-00-00"
+          },
+          "city": {
+            "type": "string",
+            "description": "User's city",
+            "pattern": "/^[A-Z][A-Za-zs]*$/",
+            "example": "Kyiv"
           }
-        },
-
-        "AllNoticesGetResponse": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "title": {
-                "type": "string",
-                "description": "Notice's title",
-                "example": "Give funny pet"
-              },
-              "name": {
-                "type": "string",
-                "description": "Pet's name",
-                "example": "Jerry"
-              },
-              "sex": {
-                "type": "string",
-                "description": "Pet's gender",
-                "example": "male"
-              },
-              "_category": {
-                "type": "string",
-                "description": "Category's ID",
-                "example": "64e0f7da190f76f8b370b383"
-              },
-              "favorite": {
-                "type": "boolean",
-                "description": "Is this notice favorite?",
-                "example": false
-              },
-              "photo": {
-                "type": "string",
-                "description": "Path to pet's photo",
-                "example": "./img/path-to-photo.jpg"
-              },
-              "place": {
-                "type": "string",
-                "description": "Pet's location",
-                "example": "Lviv"
-              },
-              "birthday": {
-                "type": "string",
-                "description": "Pet's birthday",
-                "birthday": "01.01.2022"
-              },
-              "type": {
-                "type": "string",
-                "description": "Pet's type",
-                "example": "pug"
-              },
-              "describe": {
-                "type": "string",
-                "description": "Pet's description",
-                "example": "Really funny pet"
-              },
-              "_id": {
-                "type": "string",
-                "description": "Notice's ID",
-                "example": "64e37426acdd8b99c6bf6018"
-              },
-              "createdAt": {
-                "type": "string"
-              },
-              "updatedAt": {
-                "type": "string"
-              }
-            }
-          }
-        },
-        "NoticesPostRequest": {
-          "type": "object",
-          "required": [
-            "title",
-            "name",
-            "sex",
-            "_category",
-            "place",
-            "birthday",
-            "type"
-          ],
-          "properties": {
-            "title": {
-              "type": "string",
-              "description": "Notice's title",
-              "example": "Give funny pet"
-            },
-            "name": {
-              "type": "string",
-              "description": "Pet's name",
-              "example": "Jerry"
-            },
-            "sex": {
-              "type": "string",
-              "description": "Pet's gender",
-              "example": "male"
-            },
-            "_category": {
-              "type": "string",
-              "description": "Category's ID",
-              "example": "64e0f7da190f76f8b370b383"
-            },
-            "favorite": {
-              "type": "boolean",
-              "description": "Is this notice favorite?",
-              "example": false
-            },
-            "photo": {
-              "type": "string",
-              "description": "Path to pet's photo",
-              "example": "./img/path-to-photo.jpg"
-            },
-            "place": {
-              "type": "string",
-              "description": "Pet's location",
-              "example": "Lviv"
-            },
-            "birthday": {
-              "type": "string",
-              "description": "Pet's birthday",
-              "birthday": "01.01.2022"
-            },
-            "type": {
-              "type": "string",
-              "description": "Pet's type",
-              "example": "pug"
-            },
-            "describe": {
-              "type": "string",
-              "description": "Pet's description",
-              "example": "Really funny pet"
-            }
-          }
-        },
-        "NoticesPostResponse": {
+        }
+      },
+      "AllNoticesGetResponse": {
+        "type": "array",
+        "items": {
           "type": "object",
           "properties": {
             "title": {
@@ -672,79 +523,209 @@
               "type": "string"
             }
           }
-        },
-        "RegistartionResponse": {
-          "type": "object",
-          "properties": {
-            "name": {
-              "type": "string",
-              "example": "Dima"
-            },
-            "email": {
-              "type": "string",
-              "description": "User's email",
-              "format": "email"
-            }
+        }
+      },
+      "NoticesPostRequest": {
+        "type": "object",
+        "required": [
+          "title",
+          "name",
+          "sex",
+          "_category",
+          "place",
+          "birthday",
+          "type"
+        ],
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Notice's title",
+            "example": "Give funny pet"
+          },
+          "name": {
+            "type": "string",
+            "description": "Pet's name",
+            "example": "Jerry"
+          },
+          "sex": {
+            "type": "string",
+            "description": "Pet's gender",
+            "example": "male"
+          },
+          "_category": {
+            "type": "string",
+            "description": "Category's ID",
+            "example": "64e0f7da190f76f8b370b383"
+          },
+          "favorite": {
+            "type": "boolean",
+            "description": "Is this notice favorite?",
+            "example": false
+          },
+          "photo": {
+            "type": "string",
+            "description": "Path to pet's photo",
+            "example": "./img/path-to-photo.jpg"
+          },
+          "place": {
+            "type": "string",
+            "description": "Pet's location",
+            "example": "Lviv"
+          },
+          "birthday": {
+            "type": "string",
+            "description": "Pet's birthday",
+            "birthday": "01.01.2022"
+          },
+          "type": {
+            "type": "string",
+            "description": "Pet's type",
+            "example": "pug"
+          },
+          "describe": {
+            "type": "string",
+            "description": "Pet's description",
+            "example": "Really funny pet"
           }
-        },
-        "pets": {
-          "type": "object",
-          "required": ["name", "birthday", "petURL", "type"],
-          "properties": {
-            "name": {
-              "type": "string",
-              "example": "Archi"
-            },
-            "petURL": {
-              "type": "string",
-              "format": "binary",
-              "description": "maximum size 3MB"
-            },
-            "birthday": {
-              "type": "string",
-              "description": "User's birthday",
-              "example": "11-05-2005"
-            },
-            "type": {
-              "type": "string",
-              "minLength": 2,
-              "maxLength": 16,
-              "example": "dog"
-            },
-            "describe": {
-              "type": "string",
-              "maxLength": 120
+        }
+      },
+      "NoticesPostResponse": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Notice's title",
+            "example": "Give funny pet"
+          },
+          "name": {
+            "type": "string",
+            "description": "Pet's name",
+            "example": "Jerry"
+          },
+          "sex": {
+            "type": "string",
+            "description": "Pet's gender",
+            "example": "male"
+          },
+          "_category": {
+            "type": "string",
+            "description": "Category's ID",
+            "example": "64e0f7da190f76f8b370b383"
+          },
+          "favorite": {
+            "type": "boolean",
+            "description": "Is this notice favorite?",
+            "example": false
+          },
+          "photo": {
+            "type": "string",
+            "description": "Path to pet's photo",
+            "example": "./img/path-to-photo.jpg"
+          },
+          "place": {
+            "type": "string",
+            "description": "Pet's location",
+            "example": "Lviv"
+          },
+          "birthday": {
+            "type": "string",
+            "description": "Pet's birthday",
+            "birthday": "01.01.2022"
+          },
+          "type": {
+            "type": "string",
+            "description": "Pet's type",
+            "example": "pug"
+          },
+          "describe": {
+            "type": "string",
+            "description": "Pet's description",
+            "example": "Really funny pet"
+          },
+          "_id": {
+            "type": "string",
+            "description": "Notice's ID",
+            "example": "64e37426acdd8b99c6bf6018"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          }
+        }
+      },
+      "RegistartionResponse": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Dima"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          }
+        }
+      },
+      "pets": {
+        "type": "object",
+        "required": ["name", "birthday", "petURL", "type"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Archi"
+          },
+          "petURL": {
+            "type": "string",
+            "format": "binary",
+            "description": "maximum size 3MB"
+          },
+          "birthday": {
+            "type": "string",
+            "description": "User's birthday",
+            "example": "11-05-2005"
+          },
+          "type": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 16,
+            "example": "dog"
+          },
+          "describe": {
+            "type": "string",
+            "maxLength": 120
+          }
+        }
+      }
+    },
+    "responses": {
+      "Ok": {
+        "description": "Successful operation",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/RegistrationRequest"
             }
           }
         }
       },
-      "responses": {
-        "Ok": {
-          "description": "Successful operation",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RegistrationRequest"
-              }
-            }
-          }
-        },
-        "BadRequest": {
-          "description": "Bad request (invalid request body)"
-        },
-        "AlreadyReserved": {
-          "description": "Provided email already exists"
-        },
-        "ServerError": {
-          "description": "Server error"
-        }
+      "BadRequest": {
+        "description": "Bad request (invalid request body)"
       },
-      "securitySchemes": {
-        "Bearer": {
-          "type": "http",
-          "scheme": "bearer",
-          "bearerFormat": "JWT"
-        }
+      "AlreadyReserved": {
+        "description": "Provided email already exists"
+      },
+      "ServerError": {
+        "description": "Server error"
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }
