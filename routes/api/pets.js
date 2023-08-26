@@ -14,9 +14,11 @@ const { schemas } = require('../../models/pet');
 router.post(
   '/addPet',
   authenticate,
-  validateBody(schemas.addPetSchema),
   cloudUpload.single('petURL'),
+  validateBody(schemas.addPetSchema),
   ctrl.addPet
 );
+
+router.delete('/delete/:petId', authenticate, ctrl.deletePet);
 
 module.exports = router;
