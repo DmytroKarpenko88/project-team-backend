@@ -267,6 +267,25 @@
           }
         }
       }
+    },
+    "/api/notices/{idNotice}": {
+      "tags": ["Notices"],
+      "summary": "Getting one notice by ID",
+      "responses": {
+        "200": {
+          "description": "Successful operation",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NoticesPostResponse"
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "Not Found"
+        }
+      }
     }
   },
 
