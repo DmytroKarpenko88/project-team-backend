@@ -6,6 +6,7 @@ const updateSubscription = require('./updateSubscription');
 const updateProfile = require('./ubdateProfile');
 const getNoticesByAuthor = require('./getNoticesByAuthor');
 const getUserInformation = require('./getUsetInformation');
+const deleteNoticesByAuthor = require('./deleteNoticesByAuthor');
 
 module.exports = {
   getCurrent: ctrlWrapper(getCurrent),
@@ -15,4 +16,5 @@ module.exports = {
   updateProfile: ctrlWrapper(updateProfile),
   getNoticesByAuthor: ctrlWrapper(getNoticesByAuthor),
   getUserInformation: ctrlWrapper(getUserInformation),
+  deleteNoticesByAuthor: ctrlWrapper(deleteNoticesByAuthor),
 };

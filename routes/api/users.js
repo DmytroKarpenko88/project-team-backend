@@ -29,5 +29,11 @@ router.patch(
   cloudUpload.single('avatarURL'),
   ctrl.updateProfile
 );
+  
+router.delete(
+  '/current/notices/:idNotice',
+  authenticate,
+  ctrl.deleteNoticesByAuthor
+);
 
 module.exports = router;

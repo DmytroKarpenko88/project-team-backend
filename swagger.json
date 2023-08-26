@@ -160,6 +160,28 @@
         "security": [{ "Bearer": [] }]
       }
     },
+    "/api/users/current/notices/{idNotice}": {
+      "delete": {
+        "tags": ["User"],
+        "summary": "Delete the notice via User",
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoticesPostResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
     "/api/users/profile": {
       "get": {
         "tags": ["User"],
@@ -269,21 +291,23 @@
       }
     },
     "/api/notices/{idNotice}": {
-      "tags": ["Notices"],
-      "summary": "Getting one notice by ID",
-      "responses": {
-        "200": {
-          "description": "Successful operation",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NoticesPostResponse"
+      "get": {
+        "tags": ["Notices"],
+        "summary": "Getting one notice by ID",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoticesPostResponse"
+                }
               }
             }
+          },
+          "404": {
+            "description": "Not Found"
           }
-        },
-        "404": {
-          "description": "Not Found"
         }
       }
     }

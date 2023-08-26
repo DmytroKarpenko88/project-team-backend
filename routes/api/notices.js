@@ -22,4 +22,6 @@ router.post(
 
 router.get('/:idNotice', getOneNotice);
 
+router.get('/search?category')
+
 module.exports = router;
