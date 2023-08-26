@@ -12,7 +12,7 @@ const ctrl = require('../../controllers/pet');
 const { schemas } = require('../../models/pet');
 
 router.post(
-  '/addPet',
+  '/add',
   authenticate,
   cloudUpload.single('petURL'),
   validateBody(schemas.addPetSchema),

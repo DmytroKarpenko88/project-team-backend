@@ -24,6 +24,10 @@
     {
       "name": "Notices",
       "description": "Notices endpoints"
+    },
+    {
+      "name": "Pets",
+      "description": "Pets endpoints"
     }
   ],
 
@@ -264,6 +268,42 @@
           },
           "400": {
             "description": "Bad request (invalid request body)"
+          }
+        }
+      }
+    },
+    "/api/pets/add": {
+      "post": {
+        "tags": ["Pets"],
+        "summary": "Getting all notices",
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Registartion's object",
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/pets"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/pets/delete/:{petId}": {
+      "delete": {
+        "tags": ["Pets"],
+        "summary": "Getting all notices",
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Registartion's object",
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/pets"
+              }
+            }
           }
         }
       }
@@ -565,6 +605,36 @@
             "type": "string",
             "description": "User's email",
             "format": "email"
+          }
+        }
+      },
+      "pets": {
+        "type": "object",
+        "required": ["name", "birthday", "petURL", "type"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Archi"
+          },
+          "petURL": {
+            "type": "string",
+            "format": "binary",
+            "description": "maximum size 3MB"
+          },
+          "birthday": {
+            "type": "string",
+            "description": "User's birthday",
+            "example": "11-05-2005"
+          },
+          "type": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 16,
+            "example": "dog"
+          },
+          "describe": {
+            "type": "string",
+            "maxLength": 120
           }
         }
       }

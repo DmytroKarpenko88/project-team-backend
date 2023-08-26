@@ -2,15 +2,22 @@ const { HttpError } = require('../../helpers');
 const { Pet } = require('../../models/pet');
 
 const deletePet = async (req, res) => {
-  const { _id: id } = req.user;
+  const { _id: userId } = req.user;
   const { petId } = req.params;
-  console.log(id);
 
-  const pets = await Pet.find({ _owner: id });
+  // Удаляем питомца по _owner и petId
+  const deletedPet = await Pet.findOneAndDelete({
+    _id: petId,
+    _owner: userId,
+  });
 
-  const result = res.status(200).json({
+  if (!deletedPet) {
+    throw HttpError(404, 'Pet not found');
+  }
+
+  res.status(200).json({
     code: 200,
-    pets,
+    message: 'Pet deleted successfully',
   });
 };
 
