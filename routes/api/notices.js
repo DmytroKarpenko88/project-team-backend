@@ -7,7 +7,7 @@ const { getAllNotices, postNotice } = require('../../controllers/notices');
 
 const { schemas } = require('../../models/notice');
 
-router.get('/', authenticate, getAllNotices);
+router.get('/', getAllNotices);
 
 router.post(
   '/',
