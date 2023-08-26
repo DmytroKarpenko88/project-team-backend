@@ -5,8 +5,6 @@ const addPet = async (req, res) => {
   const { _id } = req.user;
   const body = req.body;
 
-  console.log('body', body);
-
   if (!body) {
     throw HttpError(400, 'missing field favorite');
   }

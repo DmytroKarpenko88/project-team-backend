@@ -54,15 +54,11 @@ PetSchema.post('save', hendleMongooseError);
 
 const addPetSchema = Joi.object({
   name: Joi.string().required(),
-  petURL: Joi.string().required(),
   place: Joi.string().pattern(cityRegExp).required(),
   birthday: Joi.string().pattern(dateRegExp).required(),
   type: Joi.string().required(),
   describe: Joi.string(),
-}).fork(
-  ['name', 'petURL', 'place', 'birthday', 'type', 'describe'],
-  schema => schema
-);
+}).fork(['name', 'place', 'birthday', 'type', 'describe'], schema => schema);
 
 const schemas = {
   addPetSchema,
