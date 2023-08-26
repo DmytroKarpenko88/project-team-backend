@@ -45,7 +45,7 @@ router.get(
 router.patch(
   '/current/favorites/:idNotice',
   authenticate,
-  ctrl.addFavoriteNotice
+  ctrl.toggleFavoriteNotice
 );
 
 module.exports = router;

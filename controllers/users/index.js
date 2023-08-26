@@ -7,7 +7,7 @@ const updateProfile = require('./ubdateProfile');
 const getNoticesByAuthor = require('./getNoticesByAuthor');
 const getUserInformation = require('./getUsetInformation');
 const deleteNoticesByAuthor = require('./deleteNoticesByAuthor');
-const addFavoriteNotice = require('./addFavoriteNotice');
+const toggleFavoriteNotice = require('./toggleFavoriteNotice');
 const getFavoriteNotices = require('./getFavoriteNotices');
 
 module.exports = {
@@ -19,6 +19,6 @@ module.exports = {
   getNoticesByAuthor: ctrlWrapper(getNoticesByAuthor),
   getUserInformation: ctrlWrapper(getUserInformation),
   deleteNoticesByAuthor: ctrlWrapper(deleteNoticesByAuthor),
-  addFavoriteNotice: ctrlWrapper(addFavoriteNotice),
+  toggleFavoriteNotice: ctrlWrapper(toggleFavoriteNotice),
   getFavoriteNotices: ctrlWrapper(getFavoriteNotices),
 };
