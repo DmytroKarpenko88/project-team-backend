@@ -24,6 +24,10 @@
     {
       "name": "Notices",
       "description": "Notices endpoints"
+    },
+    {
+      "name": "Pets",
+      "description": "Pets endpoints"
     }
   ],
 
@@ -295,7 +299,9 @@
       "get": {
         "tags": ["Notices"],
         "summary": "Getting all notices"
-      },
+      }
+    },
+    "/api": {
       "post": {
         "tags": ["Notices"],
         "summary": "Adding new notice",
@@ -324,6 +330,59 @@
           },
           "400": {
             "description": "Bad request (invalid request body)"
+          }
+        }
+      }
+    },
+    "/api/pets/add": {
+      "post": {
+        "tags": ["Pets"],
+        "summary": "Getting all notices",
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Registartion's object",
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/pets"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/pets"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/pets/delete/{petId}": {
+      "delete": {
+        "tags": ["Pets"],
+        "summary": "Delete pet by id",
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "in": "params",
+            "name": "petId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "code": 200,
+            "description": "Pet deleted successfully"
           }
         }
       }
@@ -425,7 +484,7 @@
             "type": "string",
             "description": "User's phones",
             "pattern": "/^+38(0d{2})d{3}-d{2}-d{2}$/",
-            "example": "+380000000000"
+            "example": "+38(000)000-00-00"
           },
           "city": {
             "type": "string",
@@ -435,7 +494,6 @@
           }
         }
       },
-
       "AllNoticesGetResponse": {
         "type": "array",
         "items": {
@@ -646,6 +704,36 @@
             "type": "string",
             "description": "User's email",
             "format": "email"
+          }
+        }
+      },
+      "pets": {
+        "type": "object",
+        "required": ["name", "birthday", "petURL", "type"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Archi"
+          },
+          "petURL": {
+            "type": "string",
+            "format": "binary",
+            "description": "maximum size 3MB"
+          },
+          "birthday": {
+            "type": "string",
+            "description": "User's birthday",
+            "example": "11-05-2005"
+          },
+          "type": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 16,
+            "example": "dog"
+          },
+          "describe": {
+            "type": "string",
+            "maxLength": 120
           }
         }
       }
