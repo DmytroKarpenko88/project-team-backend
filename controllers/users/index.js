@@ -8,6 +8,7 @@ const getNoticesByAuthor = require('./getNoticesByAuthor');
 const getUserInformation = require('./getUsetInformation');
 const deleteNoticesByAuthor = require('./deleteNoticesByAuthor');
 const addFavoriteNotice = require('./addFavoriteNotice');
+const getFavoriteNotices = require('./getFavoriteNotices');
 
 module.exports = {
   getCurrent: ctrlWrapper(getCurrent),
@@ -19,4 +20,5 @@ module.exports = {
   getUserInformation: ctrlWrapper(getUserInformation),
   deleteNoticesByAuthor: ctrlWrapper(deleteNoticesByAuthor),
   addFavoriteNotice: ctrlWrapper(addFavoriteNotice),
+  getFavoriteNotices: ctrlWrapper(getFavoriteNotices),
 };
