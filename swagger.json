@@ -362,7 +362,7 @@
           "phone": {
             "type": "string",
             "description": "User's phones",
-            "pattern": "/^(+380d{9})$/",
+            "pattern": "/^+38(0d{2})d{3}-d{2}-d{2}$/",
             "example": "+380000000000"
           },
           "city": {
