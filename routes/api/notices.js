@@ -3,11 +3,15 @@ const router = express.Router();
 
 const { authenticate, validateBody } = require('../../middlewares');
 
-const { getAllNotices, postNotice } = require('../../controllers/notices');
+const {
+  getAllNotices,
+  postNotice,
+  getOneNotice
+} = require('../../controllers/notices');
 
 const { schemas } = require('../../models/notice');
 
-router.get('/', authenticate, getAllNotices);
+router.get('/', getAllNotices);
 
 router.post(
   '/',
@@ -15,5 +19,9 @@ router.post(
   validateBody(schemas.addNoticeSchema),
   postNotice
 );
+
+router.get('/:idNotice', getOneNotice);
+
+router.get('/search?category')
 
 module.exports = router;
