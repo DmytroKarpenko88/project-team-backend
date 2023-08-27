@@ -1,12 +1,16 @@
 const express = require('express');
 const router = express.Router();
 
-const { authenticate, validateBody } = require('../../middlewares');
+const {
+  authenticate,
+  validateBody,
+  cloudUpload,
+} = require('../../middlewares');
 
 const {
   searchNotices,
   postNotice,
-  getOneNotice
+  getOneNotice,
 } = require('../../controllers/notices');
 
 const { schemas } = require('../../models/notice');
@@ -16,6 +20,7 @@ router.get('/filter/:category', searchNotices);
 router.post(
   '/',
   authenticate,
+  cloudUpload.single('petURL'),
   validateBody(schemas.addNoticeSchema),
   postNotice
 );
