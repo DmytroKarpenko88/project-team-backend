@@ -23,13 +23,13 @@ router.post(
 );
 
 router.patch(
-  '/ubdateProfile',
+  '/updateProfile',
   authenticate,
   validateBody(schemas.ubdateProfileSchema),
   cloudUpload.single('avatarURL'),
   ctrl.updateProfile
 );
-  
+
 router.delete(
   '/current/notices/:idNotice',
   authenticate,
@@ -37,10 +37,6 @@ router.delete(
 );
 
 // router.patch(
-router.get(
-  '/current/favorits/:idNotice',
-  authenticate,
-  ctrl.addFavoriteNotice
-);
+router.get('/current/favorits/:idNotice', authenticate, ctrl.addFavoriteNotice);
 
 module.exports = router;

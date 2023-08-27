@@ -216,7 +216,7 @@
         }
       }
     },
-    "/api/users/ubdateProfile": {
+    "/api/users/updateProfile": {
       "patch": {
         "tags": ["User"],
         "summary": "Ubdating user profile",

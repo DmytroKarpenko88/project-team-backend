@@ -7,7 +7,7 @@ const {
   cloudUpload,
 } = require('../../middlewares');
 
-const ctrl = require('../../controllers/pet');
+const ctrl = require('../../controllers/pets');
 
 const { schemas } = require('../../models/pet');
 
