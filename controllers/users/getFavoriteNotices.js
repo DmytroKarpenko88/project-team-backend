@@ -9,7 +9,7 @@ const getFavoriteNotices = async (req, res) => {
   const result = await Notice.find(
     {_id: {$in: listFavorites}}
   ).populate(
-    '_owner _category',
+    '_owner',
     '-createdAt -updatedAt -token -password -favorites'
   );
 

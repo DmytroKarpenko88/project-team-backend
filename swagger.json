@@ -296,10 +296,6 @@
       }
     },
     "/api/notices": {
-      "get": {
-        "tags": ["Notices"],
-        "summary": "Getting all notices"
-      },
       "post": {
         "tags": ["Notices"],
         "summary": "Adding new notice",
@@ -322,6 +318,59 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/NoticesPostResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)"
+          }
+        }
+      }
+    },
+    "/api/notices/{idNotice}": {
+      "get": {
+        "tags": ["Notices"],
+        "summary": "Getting one notice by ID",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoticesPostResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/notices/filter/{category}": {
+      "get": {
+        "tags": ["Notices"],
+        "summary": "Getting notices by search in category",
+        "parameters": [{
+          "in": "query",
+          "name": "search",
+          "type": "string",
+          "description": "Search string"
+        }, {
+          "in": "path",
+          "name": "category",
+          "type": "string",
+          "description": "Select category"
+        }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AllNoticesGetResponse"
                 }
               }
             }
@@ -381,27 +430,6 @@
           "200": {
             "code": 200,
             "description": "Pet deleted successfully"
-          }
-        }
-      }
-    },
-    "/api/notices/{idNotice}": {
-      "get": {
-        "tags": ["Notices"],
-        "summary": "Getting one notice by ID",
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/NoticesPostResponse"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found"
           }
         }
       }
