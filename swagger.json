@@ -186,6 +186,44 @@
         }
       }
     },
+    "/api/users/current/favorites": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Get favorite notices",
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AllNoticesGetResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/users/current/favorites/{idNotice}": {
+      "patch": {
+        "tags": ["User"],
+        "summary": "Change a set favorite notices",
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoticesPostResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/users/profile": {
       "get": {
         "tags": ["User"],
