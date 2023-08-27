@@ -4,9 +4,10 @@ const { Pet } = require('../../models/pet');
 const deletePet = async (req, res) => {
   const { _id: userId } = req.user;
   const { petId } = req.params;
+  console.log('petID', petId);
 
-  if (petId) {
-    throw HttpError(404, 'Not found');
+  if (!petId) {
+    throw HttpError(400, 'Bad request');
   }
 
   // Удаляем питомца по _owner и petId
