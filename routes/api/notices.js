@@ -11,7 +11,7 @@ const {
 
 const { schemas } = require('../../models/notice');
 
-router.get('/(:category)?', searchNotices);
+router.get('/filter/:category', searchNotices);
 
 router.post(
   '/',
@@ -21,7 +21,5 @@ router.post(
 );
 
 router.get('/:idNotice', getOneNotice);
-
-router.get('')
 
 module.exports = router;

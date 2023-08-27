@@ -2,6 +2,22 @@ const { Schema, model } = require('mongoose');
 const Joi = require('joi');
 const { hendleMongooseError } = require('../helpers');
 
+const categoriesListTitle = [
+  'Sell',
+  'In good hands',
+  'Lost/Found',
+  'Favorite ads',
+  'My ads',
+];
+
+const categoriesListCode = [
+  'sell',
+  'in_good_hands',
+  'lost_found',
+  'favorite_ads',
+  'my_ads',
+];
+
 const noticeSchema = new Schema(
   {
     title: {
@@ -17,10 +33,22 @@ const noticeSchema = new Schema(
       enum: ['male', 'female'],
       required: [true, 'Sex is required'],
     },
-    _category: {
-      type: Schema.Types.ObjectId,
-      ref: 'category',
-      required: [true, '_category is required'],
+    // _category: {
+    //   type: Schema.Types.ObjectId,
+    //   ref: 'category',
+    //   required: [true, '_category is required'],
+    // },
+    category: {
+      title: {
+        type: String,
+        enum: categoriesListTitle,
+        default: 'Sell',
+      },
+      code: {
+        type: String,
+        enum: categoriesListCode,
+        default: 'sell'
+      },
     },
     photo: {
       type: String,
@@ -62,7 +90,10 @@ const addNoticeSchema = Joi.object({
   title: Joi.string().required(),
   name: Joi.string().required(),
   sex: Joi.string().allow('male', 'female').required(),
-  _category: Joi.string().required(),
+  category: {
+    title: Joi.string(),
+    code: Joi.string(),
+  },
   favorite: Joi.boolean(),
   photo: Joi.string(),
   location: Joi.string().required(),
