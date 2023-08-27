@@ -13,7 +13,9 @@ const getFriends = async (req, res) => {
 
   res.status(200).json({
     code: 200,
-    friends: [...result],
+    data: {
+      friends: [...result],
+    },
   });
 };
 

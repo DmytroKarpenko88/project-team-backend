@@ -72,6 +72,7 @@ const noticeSchema = new Schema(
     },
     describe: {
       type: String,
+      maxlength: 120,
     },
     _owner: {
       type: Schema.Types.ObjectId,

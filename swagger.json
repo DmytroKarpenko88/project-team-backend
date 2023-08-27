@@ -28,6 +28,10 @@
     {
       "name": "Pets",
       "description": "Pets endpoints"
+    },
+    {
+      "name": "Friends",
+      "description": "Friends endpoints"
     }
   ],
 
@@ -353,17 +357,20 @@
       "get": {
         "tags": ["Notices"],
         "summary": "Getting notices by search in category",
-        "parameters": [{
-          "in": "query",
-          "name": "search",
-          "type": "string",
-          "description": "Search string"
-        }, {
-          "in": "path",
-          "name": "category",
-          "type": "string",
-          "description": "Select category"
-        }],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "search",
+            "type": "string",
+            "description": "Search string"
+          },
+          {
+            "in": "path",
+            "name": "category",
+            "type": "string",
+            "description": "Select category"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -430,6 +437,24 @@
           "200": {
             "code": 200,
             "description": "Pet deleted successfully"
+          }
+        }
+      }
+    },
+    "/api/friends/getAll": {
+      "get": {
+        "tags": ["Friends"],
+        "summary": "Get all friends",
+        "responses": {
+          "200": {
+            "code": 200,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FriendsResponse"
+                }
+              }
+            }
           }
         }
       }
@@ -562,30 +587,34 @@
                 }
               },
               "pets": {
-                "properties": {
-                  "name": {
-                    "type": "string",
-                    "example": "Archi"
-                  },
-                  "petURL": {
-                    "type": "string",
-                    "format": "binary",
-                    "description": "maximum size 3MB"
-                  },
-                  "birthday": {
-                    "type": "string",
-                    "description": "User's birthday",
-                    "example": "11-05-2005"
-                  },
-                  "type": {
-                    "type": "string",
-                    "minLength": 2,
-                    "maxLength": 16,
-                    "example": "dog"
-                  },
-                  "describe": {
-                    "type": "string",
-                    "maxLength": 120
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "Archi"
+                    },
+                    "petURL": {
+                      "type": "string",
+                      "format": "binary",
+                      "description": "maximum size 3MB"
+                    },
+                    "birthday": {
+                      "type": "string",
+                      "description": "User's birthday",
+                      "example": "11-05-2005"
+                    },
+                    "type": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 16,
+                      "example": "dog"
+                    },
+                    "describe": {
+                      "type": "string",
+                      "maxLength": 120
+                    }
                   }
                 }
               }
@@ -669,10 +698,11 @@
           "title",
           "name",
           "sex",
-          "_category",
-          "place",
+          "category",
+          "location",
           "birthday",
-          "type"
+          "type",
+          "petURL"
         ],
         "properties": {
           "title": {
@@ -690,7 +720,7 @@
             "description": "Pet's gender",
             "example": "male"
           },
-          "_category": {
+          "category": {
             "type": "string",
             "description": "Category's ID",
             "example": "64e0f7da190f76f8b370b383"
@@ -700,12 +730,12 @@
             "description": "Is this notice favorite?",
             "example": false
           },
-          "photo": {
+          "petURL": {
             "type": "string",
             "description": "Path to pet's photo",
             "example": "./img/path-to-photo.jpg"
           },
-          "place": {
+          "location": {
             "type": "string",
             "description": "Pet's location",
             "example": "Lviv"
@@ -722,7 +752,8 @@
           },
           "describe": {
             "type": "string",
-            "description": "Pet's description",
+            "description": " max length 120,",
+            "maxlength": 120,
             "example": "Really funny pet"
           }
         }
@@ -743,9 +774,10 @@
           "sex": {
             "type": "string",
             "description": "Pet's gender",
+            "enum": ["male", "female"],
             "example": "male"
           },
-          "_category": {
+          "category": {
             "type": "string",
             "description": "Category's ID",
             "example": "64e0f7da190f76f8b370b383"
@@ -755,12 +787,12 @@
             "description": "Is this notice favorite?",
             "example": false
           },
-          "photo": {
+          "petURL": {
             "type": "string",
             "description": "Path to pet's photo",
             "example": "./img/path-to-photo.jpg"
           },
-          "place": {
+          "location": {
             "type": "string",
             "description": "Pet's location",
             "example": "Lviv"
@@ -834,6 +866,55 @@
           "describe": {
             "type": "string",
             "maxLength": 120
+          }
+        }
+      },
+      "FriendsResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "Josera"
+            },
+
+            "url": {
+              "type": "string",
+              "example": "https://josera.ua/"
+            },
+
+            "addressUrl": {
+              "type": "string",
+              "example": "https://goo.gl/maps/3RyzTYBvMr9WQWCC6"
+            },
+
+            "imageUrl": {
+              "type": "string",
+              "example": "https://storage.googleapis.com/kidslikev2_bucket/pets-support/images/sponsors/frame_291.png"
+            },
+
+            "address": {
+              "type": "string",
+              "example": "Київ, вулиця Шота Руставелі, 44 (3-й поверх, офіс 7)"
+            },
+
+            "workDays": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            },
+
+            "phone": {
+              "type": "integer",
+              "example": 380800409060
+            },
+
+            "email": {
+              "type": "string",
+              "example": "hello@happypaw.ua"
+            }
           }
         }
       }

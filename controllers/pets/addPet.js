@@ -6,7 +6,7 @@ const addPet = async (req, res) => {
   const body = req.body;
 
   if (!body) {
-    throw HttpError(400, 'missing field favorite');
+    throw HttpError(400, 'Bad request');
   }
 
   const data = req.file
