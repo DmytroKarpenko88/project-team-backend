@@ -4,14 +4,14 @@ const router = express.Router();
 const { authenticate, validateBody } = require('../../middlewares');
 
 const {
-  getAllNotices,
+  searchNotices,
   postNotice,
   getOneNotice
 } = require('../../controllers/notices');
 
 const { schemas } = require('../../models/notice');
 
-router.get('/', getAllNotices);
+router.get('/(:category)?', searchNotices);
 
 router.post(
   '/',
@@ -22,6 +22,6 @@ router.post(
 
 router.get('/:idNotice', getOneNotice);
 
-router.get('/search?category')
+router.get('')
 
 module.exports = router;

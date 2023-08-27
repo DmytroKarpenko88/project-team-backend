@@ -27,7 +27,7 @@ const noticeSchema = new Schema(
     },
     location: {
       type: String,
-      required: [true, 'place is required'],
+      required: [true, 'location is required'],
     },
     price: {
       type: Number,
@@ -65,7 +65,7 @@ const addNoticeSchema = Joi.object({
   _category: Joi.string().required(),
   favorite: Joi.boolean(),
   photo: Joi.string(),
-  place: Joi.string().required(),
+  location: Joi.string().required(),
   birthday: Joi.string()
     .pattern(/^\d{2}\.\d{2}\.\d{4}$/)
     .required(),

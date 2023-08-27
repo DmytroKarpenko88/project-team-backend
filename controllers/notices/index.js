@@ -1,5 +1,5 @@
 module.exports = {
-  getAllNotices: require('./getAllNotices'),
+  searchNotices: require('./searchNotices'),
   postNotice: require('./postNotice'),
   getOneNotice: require('./getOneNotice'),
 };

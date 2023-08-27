@@ -299,9 +299,7 @@
       "get": {
         "tags": ["Notices"],
         "summary": "Getting all notices"
-      }
-    },
-    "/api": {
+      },
       "post": {
         "tags": ["Notices"],
         "summary": "Adding new notice",

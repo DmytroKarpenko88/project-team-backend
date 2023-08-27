@@ -10,8 +10,6 @@ const toggleFavoriteNotice = async (req, res) => {
     ? listFavorites.filter(item => item.toString() !== idNotice.toString())
     : [...listFavorites, idNotice];
 
-  console.log('newFavorites: ', newFavorites);
-
   const result = await User.findByIdAndUpdate(_owner, {
     favorites: newFavorites
   }, {
