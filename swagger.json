@@ -303,6 +303,7 @@
       "post": {
         "tags": ["Notices"],
         "summary": "Adding new notice",
+        "security": [{ "Bearer": [] }],
         "parameters": [],
         "requestBody": {
           "description": "Object notice's data",
@@ -701,8 +702,7 @@
           "category",
           "location",
           "birthday",
-          "type",
-          "petURL"
+          "type"
         ],
         "properties": {
           "title": {
@@ -789,6 +789,7 @@
           },
           "petURL": {
             "type": "string",
+            "format": "binary",
             "description": "Path to pet's photo",
             "example": "./img/path-to-photo.jpg"
           },
