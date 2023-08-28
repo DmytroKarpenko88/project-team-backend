@@ -168,7 +168,19 @@
       "get": {
         "tags": ["User"],
         "summary": "Current user's notices",
-        "security": [{ "Bearer": [] }]
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AllNoticesGetResponse"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/api/users/current/notices/{idNotice}": {
