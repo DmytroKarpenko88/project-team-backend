@@ -12,10 +12,10 @@ const categoriesListTitle = [
 
 const categoriesListCode = [
   'sell',
-  'in_good_hands',
-  'lost_found',
-  'favorite_ads',
-  'my_ads',
+  'in-good-hands',
+  'lost-found',
+  'favorite-ads',
+  'my-ads',
 ];
 
 const dateRegExp = /^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-(19\d\d|20\d\d)$/;
@@ -40,8 +40,14 @@ const noticeSchema = new Schema(
     //   required: [true, '_category is required'],
     // },
     category: {
-      type: String,
-      enum: categoriesListCode,
+      title: {
+        type: String,
+        enum: categoriesListTitle
+      },
+      code: {
+        type: String,
+        enum: categoriesListCode
+      }
     },
     petURL: {
       type: String,
