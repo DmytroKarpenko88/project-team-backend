@@ -57,7 +57,7 @@ const addPetSchema = Joi.object({
   birthday: Joi.string().pattern(dateRegExp).required(),
   type: Joi.string().required(),
   describe: Joi.string(),
-}).fork(['name', 'birthday', 'type', 'describe'], schema => schema);
+});
 
 const schemas = {
   addPetSchema,
