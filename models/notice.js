@@ -18,9 +18,7 @@ const categoriesListCode = [
   'my_ads',
 ];
 
-const dateRegExp =
-  /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/;
-
+const dateRegExp = /^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-(19\d\d|20\d\d)$/;
 const noticeSchema = new Schema(
   {
     title: {
@@ -42,16 +40,8 @@ const noticeSchema = new Schema(
     //   required: [true, '_category is required'],
     // },
     category: {
-      title: {
-        type: String,
-        enum: categoriesListTitle,
-        default: 'Sell',
-      },
-      code: {
-        type: String,
-        enum: categoriesListCode,
-        default: 'sell',
-      },
+      type: String,
+      enum: categoriesListCode,
     },
     petURL: {
       type: String,
@@ -95,10 +85,9 @@ const addNoticeSchema = Joi.object({
   title: Joi.string().required(),
   name: Joi.string().required(),
   sex: Joi.string().allow('male', 'female').required(),
-  category: {
-    title: Joi.string(),
-    code: Joi.string(),
-  },
+  category: Joi.string()
+    .allow('sell', 'in_good_hands', 'lost_found', 'favorite_ads', 'my_ads')
+    .required(),
   favorite: Joi.boolean(),
   location: Joi.string().required(),
   birthday: Joi.string().pattern(dateRegExp).required(),

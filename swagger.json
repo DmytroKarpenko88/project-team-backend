@@ -11,7 +11,10 @@
   },
   "consumes": ["application/json", " multipart/form-data"],
   "produces": ["application/json"],
-  "servers": [{ "url": "https://team-project-backend-881k.onrender.com" }],
+  "servers": [
+    { "url": "https://team-project-backend-881k.onrender.com" },
+    { "url": "http://localhost:5050" }
+  ],
   "tags": [
     {
       "name": "Auth",
@@ -309,7 +312,7 @@
           "description": "Object notice's data",
           "required": true,
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
                 "$ref": "#/components/schemas/NoticesPostRequest"
               }
@@ -699,10 +702,10 @@
           "title",
           "name",
           "sex",
-          "category",
           "location",
           "birthday",
-          "type"
+          "type",
+          "category"
         ],
         "properties": {
           "title": {
@@ -717,13 +720,19 @@
           },
           "sex": {
             "type": "string",
+            "enum": ["male", "female"],
             "description": "Pet's gender",
             "example": "male"
           },
           "category": {
             "type": "string",
-            "description": "Category's ID",
-            "example": "64e0f7da190f76f8b370b383"
+            "enum": [
+              "sell",
+              "in_good_hands",
+              "lost_found",
+              "favorite_ads",
+              "my_ads"
+            ]
           },
           "favorite": {
             "type": "boolean",
@@ -732,6 +741,7 @@
           },
           "petURL": {
             "type": "string",
+            "format": "binary",
             "description": "Path to pet's photo",
             "example": "./img/path-to-photo.jpg"
           },
