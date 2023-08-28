@@ -47,11 +47,12 @@ const noticeSchema = new Schema(
       code: {
         type: String,
         enum: categoriesListCode,
-        default: 'sell'
+        default: 'sell',
       },
     },
-    photo: {
+    petURL: {
       type: String,
+      required: true,
     },
     location: {
       type: String,
@@ -71,6 +72,7 @@ const noticeSchema = new Schema(
     },
     describe: {
       type: String,
+      maxlength: 120,
     },
     _owner: {
       type: Schema.Types.ObjectId,
@@ -95,7 +97,6 @@ const addNoticeSchema = Joi.object({
     code: Joi.string(),
   },
   favorite: Joi.boolean(),
-  photo: Joi.string(),
   location: Joi.string().required(),
   birthday: Joi.string()
     .pattern(/^\d{2}\.\d{2}\.\d{4}$/)
