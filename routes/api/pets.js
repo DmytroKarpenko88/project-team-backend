@@ -5,6 +5,7 @@ const {
   authenticate,
   validateBody,
   cloudUpload,
+  isValidId,
 } = require('../../middlewares');
 
 const ctrl = require('../../controllers/pets');
@@ -19,6 +20,6 @@ router.post(
   ctrl.addPet
 );
 
-router.delete('/delete/:petId', authenticate, ctrl.deletePet);
+router.delete('/delete/:petId', authenticate, isValidId, ctrl.deletePet);
 
 module.exports = router;

@@ -875,8 +875,7 @@
             "example": "dog"
           },
           "describe": {
-            "type": "string",
-            "maxLength": 120
+            "type": "string"
           }
         }
       },

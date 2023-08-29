@@ -1,10 +1,7 @@
 const { Schema, model } = require('mongoose');
 const Joi = require('joi');
 const { hendleMongooseError } = require('../helpers');
-
-// const cityRegExp = /^[A-Z][A-Za-z\s]*$/;
-
-const dateRegex = /^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-(19\d\d|20\d\d)$/;
+const regexp = require('../utils/regexp');
 
 const PetSchema = new Schema(
   {
@@ -15,7 +12,7 @@ const PetSchema = new Schema(
 
     birthday: {
       type: String,
-      match: dateRegex,
+      match: regexp.birthday,
       required: [true, 'birthday is required'],
     },
 
@@ -53,7 +50,7 @@ PetSchema.post('save', hendleMongooseError);
 
 const addPetSchema = Joi.object({
   name: Joi.string().required(),
-  birthday: Joi.string().pattern(dateRegex).required(),
+  birthday: Joi.string().pattern(regexp.birthday).required(),
   type: Joi.string().required(),
   describe: Joi.string(),
 });

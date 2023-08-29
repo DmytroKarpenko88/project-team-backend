@@ -4,6 +4,7 @@ const {
   authenticate,
   validateBody,
   cloudUpload,
+  isValidId,
 } = require('../../middlewares');
 
 const ctrl = require('../../controllers/users');
@@ -16,12 +17,6 @@ router.get('/current', authenticate, ctrl.getCurrent);
 router.get('/current/notices', authenticate, ctrl.getNoticesByAuthor);
 router.get('/profile', authenticate, ctrl.getUserInformation);
 
-router.post(
-  '/verify',
-  validateBody(schemas.emailSchema),
-  ctrl.resendVerifyEmail
-);
-
 router.patch(
   '/updateProfile',
   authenticate,
@@ -33,21 +28,17 @@ router.patch(
 router.delete(
   '/current/notices/:idNotice',
   authenticate,
+  isValidId,
   ctrl.deleteNoticesByAuthor
 );
 
-
-router.get(
-  '/current/favorites',
-  authenticate,
-  ctrl.getFavoriteNotices
-)
+router.get('/current/favorites', authenticate, ctrl.getFavoriteNotices);
 
 router.patch(
   '/current/favorites/:idNotice',
   authenticate,
+  isValidId,
   ctrl.toggleFavoriteNotice
 );
-
 
 module.exports = router;

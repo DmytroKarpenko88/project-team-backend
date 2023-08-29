@@ -8,9 +8,6 @@ const getFriends = async (req, res) => {
     throw HttpError(400, 'Not found friends');
   }
 
-  //   const { title, url, addressUrl, imageUrl, address, workDays, phone, email } =
-  //     result;
-
   res.status(200).json({
     code: 200,
     data: {

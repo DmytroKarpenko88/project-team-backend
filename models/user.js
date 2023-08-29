@@ -1,15 +1,7 @@
 const Joi = require('joi');
 const { Schema, model } = require('mongoose');
 const { hendleMongooseError } = require('../helpers');
-
-const emailRegexp = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-
-const passwordRegexp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/;
-const dateRegExp = /^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-(19\d\d|20\d\d)$/;
-
-const phoneRegExp = /^\+38\(0\d{2}\)\d{3}-\d{2}-\d{2}$/;
-
-const cityRegExp = /^[A-Z][A-Za-z\s]*$/;
+const regexp = require('../utils/regexp');
 
 const userSchema = new Schema(
   {
@@ -20,13 +12,13 @@ const userSchema = new Schema(
     password: {
       type: String,
       minlength: 6,
-      match: passwordRegexp,
+      match: regexp.password,
       required: [true, 'Set password for user'],
     },
 
     email: {
       type: String,
-      match: emailRegexp,
+      match: regexp.email,
       required: [true, 'Email is required'],
       unique: true,
     },
@@ -41,17 +33,17 @@ const userSchema = new Schema(
     },
     birthday: {
       type: String,
-      match: dateRegExp,
+      match: regexp.birthday,
       default: null,
     },
     phone: {
       type: String,
-      match: phoneRegExp,
+      match: regexp.phone,
       default: null,
     },
     city: {
       type: String,
-      match: cityRegExp,
+      match: regexp.city,
       default: null,
     },
 
@@ -67,11 +59,11 @@ userSchema.post('save', hendleMongooseError);
 
 const registerSchema = Joi.object({
   name: Joi.string().required(),
-  email: Joi.string().pattern(emailRegexp).required(),
+  email: Joi.string().pattern(regexp.email).required(),
   password: Joi.string()
     .min(6)
     .max(16)
-    .pattern(passwordRegexp)
+    .pattern(regexp.password)
     .required()
     .messages({
       'string.base': 'Пароль повинен бути рядком',
@@ -85,15 +77,15 @@ const registerSchema = Joi.object({
 
 const emailSchema = Joi.object({
   name: Joi.string(),
-  email: Joi.string().pattern(emailRegexp),
+  email: Joi.string().pattern(regexp.email),
 });
 
 const loginSchema = Joi.object({
-  email: Joi.string().pattern(emailRegexp).required(),
+  email: Joi.string().pattern(regexp.email).required(),
   password: Joi.string()
     .min(6)
     .max(16)
-    .pattern(passwordRegexp)
+    .pattern(regexp.password)
     .required()
     .messages({
       'string.base': 'Пароль повинен бути рядком',
@@ -107,10 +99,10 @@ const loginSchema = Joi.object({
 
 const ubdateProfileSchema = Joi.object({
   name: Joi.string(),
-  email: Joi.string().pattern(emailRegexp),
-  birthday: Joi.string().pattern(dateRegExp),
-  phone: Joi.string().pattern(phoneRegExp),
-  city: Joi.string().pattern(cityRegExp),
+  email: Joi.string().pattern(regexp.email),
+  birthday: Joi.string().pattern(regexp.birthday),
+  phone: Joi.string().pattern(regexp.phone),
+  city: Joi.string().pattern(regexp.city),
 });
 
 const schemas = {
