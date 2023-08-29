@@ -20,7 +20,7 @@ router.get('/profile', authenticate, ctrl.getUserInformation);
 router.patch(
   '/updateProfile',
   authenticate,
-  validateBody(schemas.ubdateProfileSchema),
+  validateBody(schemas.updateProfileSchema),
   cloudUpload.single('avatarURL'),
   ctrl.updateProfile
 );
