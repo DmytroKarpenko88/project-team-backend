@@ -189,7 +189,7 @@
         "summary": "Delete the notice via User",
         "security": [{ "Bearer": [] }],
         "responses": {
-          "200": {
+          "204": {
             "description": "Successful operation",
             "content": {
               "application/json": {
@@ -659,30 +659,49 @@
               "description": "Pet's gender",
               "example": "male"
             },
-            "_category": {
-              "type": "string",
-              "description": "Category's ID",
-              "example": "64e0f7da190f76f8b370b383"
+            "category": {
+              "type": "object",
+              "description": "Category's title and code",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "description": "Category's title",
+                  "example": "In good hands"
+                },
+                "code": {
+                  "type": "string",
+                  "description": "Category's code",
+                  "example": "in-good-hands"
+                }
+              }
             },
             "favorite": {
-              "type": "boolean",
-              "description": "Is this notice favorite?",
-              "example": false
+              "type": "array",
+              "description": "Array of favorites notices",
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              }
             },
-            "photo": {
+            "petURL": {
               "type": "string",
               "description": "Path to pet's photo",
               "example": "./img/path-to-photo.jpg"
             },
-            "place": {
+            "location": {
               "type": "string",
               "description": "Pet's location",
               "example": "Lviv"
             },
+            "price": {
+              "type": "number",
+              "description": "Pet's price",
+              "example": 300
+            },
             "birthday": {
               "type": "string",
               "description": "Pet's birthday",
-              "birthday": "01.01.2022"
+              "birthday": "01-01-2022"
             },
             "type": {
               "type": "string",
@@ -693,6 +712,11 @@
               "type": "string",
               "description": "Pet's description",
               "example": "Really funny pet"
+            },
+            "_owner": {
+              "type": "string",
+              "description": "Pet's owner",
+              "format": "uuid"
             },
             "_id": {
               "type": "string",
@@ -714,10 +738,11 @@
           "title",
           "name",
           "sex",
+          "category",
+          "petURL",
           "location",
           "birthday",
-          "type",
-          "category"
+          "type"
         ],
         "properties": {
           "title": {
@@ -738,18 +763,7 @@
           },
           "category": {
             "type": "string",
-            "enum": [
-              "sell",
-              "in_good_hands",
-              "lost_found",
-              "favorite_ads",
-              "my_ads"
-            ]
-          },
-          "favorite": {
-            "type": "boolean",
-            "description": "Is this notice favorite?",
-            "example": false
+            "enum": ["sell", "in-good-hands", "lost-found"]
           },
           "petURL": {
             "type": "string",
@@ -800,14 +814,20 @@
             "example": "male"
           },
           "category": {
-            "type": "string",
-            "description": "Category's ID",
-            "example": "64e0f7da190f76f8b370b383"
-          },
-          "favorite": {
-            "type": "boolean",
-            "description": "Is this notice favorite?",
-            "example": false
+            "type": "object",
+            "description": "Category's title and code",
+            "properties": {
+              "title": {
+                "type": "string",
+                "description": "Category's title",
+                "example": "In good hands"
+              },
+              "code": {
+                "type": "string",
+                "description": "Category's code",
+                "example": "in-good-hands"
+              }
+            }
           },
           "petURL": {
             "type": "string",
@@ -823,7 +843,7 @@
           "birthday": {
             "type": "string",
             "description": "Pet's birthday",
-            "birthday": "01.01.2022"
+            "birthday": "01-01-2022"
           },
           "type": {
             "type": "string",
@@ -838,7 +858,7 @@
           "_id": {
             "type": "string",
             "description": "Notice's ID",
-            "example": "64e37426acdd8b99c6bf6018"
+            "format": "uuid"
           },
           "createdAt": {
             "type": "string"

@@ -3,21 +3,7 @@ const Joi = require('joi');
 const { hendleMongooseError } = require('../helpers');
 const regexp = require('../utils/regexp');
 
-const categoriesListTitle = [
-  'Sell',
-  'In good hands',
-  'Lost/Found',
-  'Favorite ads',
-  'My ads',
-];
-
-const categoriesListCode = [
-  'sell',
-  'in-good-hands',
-  'lost-found',
-  'favorite-ads',
-  'my-ads',
-];
+const categoriesListCode = ['sell', 'in-good-hands', 'lost-found'];
 
 const noticeSchema = new Schema(
   {
@@ -34,24 +20,14 @@ const noticeSchema = new Schema(
       enum: ['male', 'female'],
       required: [true, 'Sex is required'],
     },
-    // _category: {
-    //   type: Schema.Types.ObjectId,
-    //   ref: 'category',
-    //   required: [true, '_category is required'],
-    // },
     category: {
-      title: {
-        type: String,
-        enum: categoriesListTitle
-      },
-      code: {
-        type: String,
-        enum: categoriesListCode
-      }
+      type: String,
+      enum: categoriesListCode,
+      required: [true, 'Category is required'],
     },
     petURL: {
       type: String,
-      required: true,
+      required: [true, 'petUrl is required'],
     },
     location: {
       type: String,
@@ -92,8 +68,9 @@ const addNoticeSchema = Joi.object({
   name: Joi.string().required(),
   sex: Joi.string().allow('male', 'female').required(),
   category: Joi.string()
-    .allow('sell', 'in_good_hands', 'lost_found', 'favorite_ads', 'my_ads')
+    .allow('sell', 'in-good-hands', 'lost-found')
     .required(),
+  petURL: Joi.string().required(),
   favorite: Joi.boolean(),
   location: Joi.string().required(),
   birthday: Joi.string().pattern(regexp.birthday).required(),

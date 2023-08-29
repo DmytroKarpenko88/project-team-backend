@@ -1,10 +1,15 @@
 const { ctrlWrapper, HttpError } = require('../../helpers');
 const { Notice } = require('../../models/notice');
 
+const dataCategories = {
+  sell: 'Sell',
+  'in-good-hands': 'In good hands',
+  'lost-found': 'Lost/Found',
+};
+
 const postNotice = async (req, res) => {
   const { _id } = req.user;
   const body = req.body;
-  console.log('body:', body);
 
   if (!body) {
     throw HttpError(400, 'Bad request');
@@ -13,7 +18,6 @@ const postNotice = async (req, res) => {
   const data = req.file
     ? { ...body, petURL: req.file.path, _owner: _id }
     : { ...body, _owner: _id };
-  console.log('data:', data);
 
   await Notice.create(data);
 
@@ -36,7 +40,10 @@ const postNotice = async (req, res) => {
       name,
       title,
       sex,
-      category,
+      category: {
+        title: dataCategories[category],
+        code: category,
+      },
       petURL,
       location,
       price,
