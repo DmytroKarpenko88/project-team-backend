@@ -21,9 +21,15 @@ const noticeSchema = new Schema(
       required: [true, 'Sex is required'],
     },
     category: {
-      type: String,
-      enum: categoriesListCode,
-      required: [true, 'Category is required'],
+      title: {
+        type: String,
+        required: [true, "Category's title is required"],
+      },
+      code: {
+        type: String,
+        enum: categoriesListCode,
+        required: [true, "Category's code is required"],
+      },
     },
     petURL: {
       type: String,
