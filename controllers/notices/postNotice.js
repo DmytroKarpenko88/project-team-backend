@@ -1,9 +1,10 @@
-const { ctrlWrapper } = require('../../helpers');
+const { ctrlWrapper, HttpError } = require('../../helpers');
 const { Notice } = require('../../models/notice');
 
 const postNotice = async (req, res) => {
   const { _id } = req.user;
   const body = req.body;
+  console.log('body:', body);
 
   if (!body) {
     throw HttpError(400, 'Bad request');
@@ -12,6 +13,7 @@ const postNotice = async (req, res) => {
   const data = req.file
     ? { ...body, petURL: req.file.path, _owner: _id }
     : { ...body, _owner: _id };
+  console.log('data:', data);
 
   await Notice.create(data);
 
