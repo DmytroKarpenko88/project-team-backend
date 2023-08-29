@@ -4,7 +4,7 @@ const { Pet } = require('../../models/pet');
 const deletePet = async (req, res) => {
   const { _id: userId } = req.user;
   const { petId } = req.params;
-  console.log('petID', petId);
+  // console.log('petID', petId);
 
   if (!petId) {
     throw HttpError(400, 'Bad request');

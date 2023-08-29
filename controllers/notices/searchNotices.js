@@ -11,7 +11,7 @@ const categoriesListCode = [
 
 const searchNotices = async (req, res) => {
   const { category = 'sell' } = req.params;
-  console.log('req.params:', req.params);
+  // console.log('req.params:', req.params);
 
   if (!categoriesListCode.includes(category)) {
     throw HttpError(400, 'Bad request');
