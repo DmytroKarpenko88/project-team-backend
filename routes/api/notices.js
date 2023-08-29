@@ -5,6 +5,7 @@ const {
   authenticate,
   validateBody,
   cloudUpload,
+  isValidId,
 } = require('../../middlewares');
 
 const {
@@ -25,6 +26,6 @@ router.post(
   postNotice
 );
 
-router.get('/:idNotice', getOneNotice);
+router.get('/:idNotice', isValidId, getOneNotice);
 
 module.exports = router;

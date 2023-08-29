@@ -1,10 +1,7 @@
 const { Schema, model } = require('mongoose');
 const Joi = require('joi');
 const { hendleMongooseError } = require('../helpers');
-
-// const cityRegExp = /^[A-Z][A-Za-z\s]*$/;
-
-const dateRegex = /^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-(19\d\d|20\d\d)$/;
+const regexp = require('../utils/regexp');
 
 const PetSchema = new Schema(
   {
@@ -15,7 +12,7 @@ const PetSchema = new Schema(
 
     birthday: {
       type: String,
-      match: dateRegex,
+      match: regexp.birthday,
       required: [true, 'birthday is required'],
     },
 
@@ -52,10 +49,24 @@ const PetSchema = new Schema(
 PetSchema.post('save', hendleMongooseError);
 
 const addPetSchema = Joi.object({
-  name: Joi.string().required(),
-  birthday: Joi.string().pattern(dateRegex).required(),
-  type: Joi.string().required(),
-  describe: Joi.string(),
+  name: Joi.string().required().messages({
+    'string.base': 'The "Name" field must be a string',
+    'any.required': 'The "Name" field is required',
+  }),
+  birthday: Joi.string().pattern(regexp.birthday).required().messages({
+    'string.base': 'The "Birthday" field must be a string',
+    'string.pattern.base':
+      'Enter a valid date of birth in the format DD-MM-YYYY',
+    'any.required': 'The "Birthday" field is required',
+  }),
+  type: Joi.string().required().messages({
+    'string.base': 'The "Type" field must be a string',
+    'any.required': 'The "Type" field is required',
+  }),
+  describe: Joi.string().max(120).messages({
+    'string.base': 'The "Description" field must be a string',
+    'string.max': 'Description must not exceed {#limit} characters',
+  }),
 });
 
 const schemas = {
