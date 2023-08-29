@@ -1,6 +1,7 @@
 const { Schema, model } = require('mongoose');
 const Joi = require('joi');
 const { hendleMongooseError } = require('../helpers');
+const regexp = require('../utils/regexp');
 
 const categoriesListTitle = [
   'Sell',
@@ -18,7 +19,6 @@ const categoriesListCode = [
   'my-ads',
 ];
 
-const dateRegExp = /^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-(19\d\d|20\d\d)$/;
 const noticeSchema = new Schema(
   {
     title: {
@@ -62,7 +62,7 @@ const noticeSchema = new Schema(
     },
     birthday: {
       type: String,
-      match: dateRegExp,
+      match: regexp.birthday,
       required: [true, 'birthday is required'],
     },
     type: {
@@ -96,7 +96,7 @@ const addNoticeSchema = Joi.object({
     .required(),
   favorite: Joi.boolean(),
   location: Joi.string().required(),
-  birthday: Joi.string().pattern(dateRegExp).required(),
+  birthday: Joi.string().pattern(regexp.birthday).required(),
   type: Joi.string().required(),
   describe: Joi.string(),
 });

@@ -1,15 +1,7 @@
 const Joi = require('joi');
 const { Schema, model } = require('mongoose');
 const { hendleMongooseError } = require('../helpers');
-
-const emailRegexp = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-
-const passwordRegexp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/;
-const dateRegExp = /^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-(19\d\d|20\d\d)$/;
-
-const phoneRegExp = /^\+38\(0\d{2}\)\d{3}-\d{2}-\d{2}$/;
-
-const cityRegExp = /^[A-Z][A-Za-z\s]*$/;
+const regexp = require('../utils/regexp');
 
 const userSchema = new Schema(
   {
@@ -20,13 +12,12 @@ const userSchema = new Schema(
     password: {
       type: String,
       minlength: 6,
-      match: passwordRegexp,
       required: [true, 'Set password for user'],
     },
 
     email: {
       type: String,
-      match: emailRegexp,
+      match: regexp.email,
       required: [true, 'Email is required'],
       unique: true,
     },
@@ -41,17 +32,17 @@ const userSchema = new Schema(
     },
     birthday: {
       type: String,
-      match: dateRegExp,
+      match: regexp.birthday,
       default: null,
     },
     phone: {
       type: String,
-      match: phoneRegExp,
+      match: regexp.phone,
       default: null,
     },
     city: {
       type: String,
-      match: cityRegExp,
+      match: regexp.city,
       default: null,
     },
 
@@ -66,58 +57,76 @@ const userSchema = new Schema(
 userSchema.post('save', hendleMongooseError);
 
 const registerSchema = Joi.object({
-  name: Joi.string().required(),
-  email: Joi.string().pattern(emailRegexp).required(),
+  name: Joi.string().required().messages({
+    'string.base': 'The "Name" field must be a string',
+    'any.required': 'The "Name" field is required',
+  }),
+  email: Joi.string().pattern(regexp.email).required().messages({
+    'string.base': 'The "Email" field must be a string',
+    'string.pattern.base': 'Enter a valid email address',
+    'any.required': 'The "Email" field is required',
+  }),
   password: Joi.string()
     .min(6)
     .max(16)
-    .pattern(passwordRegexp)
+    .pattern(regexp.password)
     .required()
     .messages({
-      'string.base': 'Пароль повинен бути рядком',
-      'string.min': 'Пароль повинен містити принаймні {#limit} символів',
-      'string.max': 'Пароль не повинен перевищувати {#limit} символів',
+      'string.base': 'The "Password" field must be a string',
+      'string.min': 'Password must be at least {#limit} characters long',
+      'string.max': 'Password must not exceed {#limit} characters',
       'string.pattern.base':
-        'Пароль повинен містити принаймні 1 літеру верхнього регістру, 1 літеру нижнього регістру та 1 цифру',
-      'any.required': 'Пароль є обовʼязковим полем',
+        'Password must contain at least 1 uppercase letter, 1 lowercase letter, and 1 digit',
+      'any.required': 'The "Password" field is required',
     }),
-});
-
-const emailSchema = Joi.object({
-  name: Joi.string(),
-  email: Joi.string().pattern(emailRegexp),
 });
 
 const loginSchema = Joi.object({
-  email: Joi.string().pattern(emailRegexp).required(),
+  email: Joi.string().pattern(regexp.email).required().messages({
+    'string.base': 'The "Email" field must be a string',
+    'string.pattern.base': 'Enter a valid email address',
+    'any.required': 'The "Email" field is required',
+  }),
   password: Joi.string()
     .min(6)
     .max(16)
-    .pattern(passwordRegexp)
+    .pattern(regexp.password)
     .required()
     .messages({
-      'string.base': 'Пароль повинен бути рядком',
-      'string.min': 'Пароль повинен містити принаймні {#limit} символів',
-      'string.max': 'Пароль не повинен перевищувати {#limit} символів',
+      'string.base': 'The "Password" field must be a string',
+      'string.min': 'Password must be at least {#limit} characters long',
+      'string.max': 'Password must not exceed {#limit} characters',
       'string.pattern.base':
-        'Пароль повинен містити принаймні 1 літеру верхнього регістру, 1 літеру нижнього регістру та 1 цифру',
-      'any.required': 'Пароль є обовʼязковим полем',
+        'Password must contain at least 1 uppercase letter, 1 lowercase letter, and 1 digit',
+      'any.required': 'The "Password" field is required',
     }),
 });
 
-const ubdateProfileSchema = Joi.object({
-  name: Joi.string(),
-  email: Joi.string().pattern(emailRegexp),
-  birthday: Joi.string().pattern(dateRegExp),
-  phone: Joi.string().pattern(phoneRegExp),
-  city: Joi.string().pattern(cityRegExp),
+const updateProfileSchema = Joi.object({
+  name: Joi.string().messages({
+    'string.base': 'The "Name" field must be a string',
+  }),
+  email: Joi.string().pattern(regexp.email).messages({
+    'string.base': 'The "Email" field must be a string',
+    'string.pattern.base': 'Enter a valid email address',
+  }),
+  birthday: Joi.string().pattern(regexp.birthday).messages({
+    'string.pattern.base':
+      'Enter a valid date of birth in the format DD-MM-YYYY',
+  }),
+  phone: Joi.string().pattern(regexp.phone).messages({
+    'string.pattern.base':
+      'Enter a valid phone number in the format +38(0XX)XXX-XX-XX',
+  }),
+  city: Joi.string().pattern(regexp.city).messages({
+    'string.pattern.base': 'Enter a city name starting with a capital letter',
+  }),
 });
 
 const schemas = {
   registerSchema,
   loginSchema,
-  emailSchema,
-  ubdateProfileSchema,
+  updateProfileSchema,
 };
 
 const User = model('user', userSchema);
