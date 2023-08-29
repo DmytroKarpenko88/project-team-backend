@@ -27,6 +27,7 @@ const noticeSchema = new Schema(
     },
     petURL: {
       type: String,
+      default: null,
       required: [true, 'petUrl is required'],
     },
     location: {
@@ -70,7 +71,7 @@ const addNoticeSchema = Joi.object({
   category: Joi.string()
     .allow('sell', 'in-good-hands', 'lost-found')
     .required(),
-  petURL: Joi.string().required(),
+  // petURL: Joi.string().required(),
   favorite: Joi.boolean(),
   location: Joi.string().required(),
   birthday: Joi.string().pattern(regexp.birthday).required(),
