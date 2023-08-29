@@ -2,10 +2,10 @@ const { isValidObjectId } = require('mongoose');
 const { HttpError } = require('../helpers');
 
 const isValidId = (req, res, next) => {
-  const { contactId } = req.params;
+  const paramsId = Object.values(req.params)[0];
 
-  if (!isValidObjectId(contactId)) {
-    next(HttpError(400, `${contactId} is not valid id`));
+  if (!isValidObjectId(paramsId)) {
+    next(HttpError(400, `${paramsId} is not valid id`));
   }
   next();
 };
