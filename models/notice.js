@@ -42,6 +42,9 @@ const noticeSchema = new Schema(
     },
     price: {
       type: Number,
+      required: function () {
+        return this.category.code === 'sell';
+      },
     },
     birthday: {
       type: String,
@@ -80,6 +83,7 @@ const addNoticeSchema = Joi.object({
   // petURL: Joi.string().required(),
   favorite: Joi.boolean(),
   location: Joi.string().required(),
+  price: Joi.number(),
   birthday: Joi.string().pattern(regexp.birthday).required(),
   type: Joi.string().required(),
   describe: Joi.string(),

@@ -15,6 +15,11 @@ const postNotice = async (req, res) => {
     throw HttpError(400, 'Bad request');
   }
 
+  body.category = {
+    title: dataCategories[body.category],
+    code: body.category,
+  };
+
   const data = req.file
     ? { ...body, petURL: req.file.path, _owner: _id }
     : { ...body, _owner: _id };
@@ -40,10 +45,7 @@ const postNotice = async (req, res) => {
       name,
       title,
       sex,
-      category: {
-        title: dataCategories[category],
-        code: category,
-      },
+      category,
       petURL,
       location,
       price,
