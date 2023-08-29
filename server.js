@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-require('./models/category');
 
 const app = require('./app');
 
