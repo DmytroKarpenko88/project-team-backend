@@ -83,7 +83,6 @@ const addNoticeSchema = Joi.object({
   petURL: Joi.string().required(),
   favorite: Joi.boolean(),
   location: Joi.string().required(),
-  // price: Joi.number(),
   price: Joi.number().when('category', {
     is: Joi.string().valid('sell'),
     then: Joi.number().required().messages({
