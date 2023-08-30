@@ -3,7 +3,7 @@
   "info": {
     "version": "2.0.0",
     "title": "Swagger test",
-    "description": "Show",
+    "description": "Pets endpoints",
     "license": {
       "name": "MIT",
       "url": ""
@@ -94,7 +94,14 @@
         },
         "responses": {
           "200": {
-            "description": "User is logged in"
+            "description": "User is logged in",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
           },
 
           "400": {
@@ -441,7 +448,7 @@
         "security": [{ "Bearer": [] }],
         "parameters": [
           {
-            "in": "params",
+            "in": "path",
             "name": "petId",
             "required": true,
             "schema": {
@@ -520,6 +527,18 @@
             "maxLength": 16,
             "pattern": "/^(?=.*[a-z])(?=.*[A-Z])(?=.*d).+$/",
             "example": "qWerty123"
+          }
+        }
+      },
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "example": 200
+          },
+          "token": {
+            "type": "string"
           }
         }
       },
@@ -879,6 +898,9 @@
             "type": "string",
             "description": "User's email",
             "format": "email"
+          },
+          "token": {
+            "type": "string"
           }
         }
       },
