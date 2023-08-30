@@ -834,6 +834,11 @@
             "description": "Pet's location",
             "example": "Lviv"
           },
+          "price": {
+            "type": "number",
+            "description": "Pet's price for sell category",
+            "example": 150
+          },
           "birthday": {
             "type": "string",
             "description": "Pet's birthday",
@@ -897,6 +902,11 @@
             "type": "string",
             "description": "Pet's location",
             "example": "Lviv"
+          },
+          "price": {
+            "type": "number",
+            "description": "Pet's price for sell category",
+            "example": 150
           },
           "birthday": {
             "type": "string",
