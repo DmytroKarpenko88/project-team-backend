@@ -20,8 +20,8 @@ const deletePet = async (req, res) => {
     throw HttpError(404, 'Pet not found');
   }
 
-  res.status(200).json({
-    code: 200,
+  res.status(204).json({
+    code: 204,
     message: 'Pet deleted successfully',
   });
 };

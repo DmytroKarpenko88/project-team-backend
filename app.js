@@ -12,6 +12,7 @@ const usersRouter = require('./routes/api/users');
 const noticesRouter = require('./routes/api/notices');
 const petRouter = require('./routes/api/pets');
 const friendsRouter = require('./routes/api/friends');
+const newsRouter = require('./routes/api/news');
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use('/api/notices', noticesRouter);
 app.use('/api/pets', petRouter);
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/api/friends', friendsRouter);
+app.use('/api/news', newsRouter);
 
 app.use((req, res) => {
   res.status(404).json({ message: 'Not found' });
