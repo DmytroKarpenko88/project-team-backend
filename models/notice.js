@@ -80,10 +80,18 @@ const addNoticeSchema = Joi.object({
   category: Joi.string()
     .allow('sell', 'in-good-hands', 'lost-found')
     .required(),
-  // petURL: Joi.string().required(),
+  petURL: Joi.string().required(),
   favorite: Joi.boolean(),
   location: Joi.string().required(),
-  price: Joi.number(),
+  // price: Joi.number(),
+  price: Joi.number().when('category', {
+    is: Joi.string().valid('sell'),
+    then: Joi.number().required().messages({
+      "ani.required": "Price is required for the 'sell' category",
+      "boolean.base": "Price must be a number",
+    }),
+    otherwise: Joi.number().forbidden(),
+  }),
   birthday: Joi.string().pattern(regexp.birthday).required(),
   type: Joi.string().required(),
   describe: Joi.string(),
