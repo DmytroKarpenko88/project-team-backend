@@ -35,6 +35,10 @@
     {
       "name": "Friends",
       "description": "Friends endpoints"
+    },
+    {
+      "name": "News",
+      "description": "News endpoints"
     }
   ],
 
@@ -130,8 +134,8 @@
         ],
         "security": [{ "Bearer": [] }],
         "responses": {
-          "200": {
-            "description": "The user is logged out."
+          "204": {
+            "description": "Logout success."
           },
           "401": {
             "description": "Missing header with authorization token."
@@ -457,8 +461,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "code": 200,
+          "204": {
+            "code": 204,
             "description": "Pet deleted successfully"
           }
         }
@@ -475,6 +479,41 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/FriendsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/news/getAll": {
+      "get": {
+        "tags": ["News"],
+        "summary": "Get all news",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Number of page",
+            "required": "false",
+            "type": "integer"
+          },
+
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit elements in page",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "code": 200,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewsGetAllResponse"
                 }
               }
             }
@@ -988,6 +1027,29 @@
             "email": {
               "type": "string",
               "example": "hello@happypaw.ua"
+            }
+          }
+        }
+      },
+      "NewsGetAllResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "imgUrl": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "date": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
             }
           }
         }
