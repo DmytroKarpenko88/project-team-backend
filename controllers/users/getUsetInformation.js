@@ -8,8 +8,6 @@ const getUserInformation = async (req, res) => {
     throw HttpError(401, 'Not authorized');
   }
 
-  const pets = await Pet.find({ _owner: user._id });
-
   const { name, email, birthday, phone, city, avatarURL } = user;
 
   res.status(200).json({
@@ -23,7 +21,6 @@ const getUserInformation = async (req, res) => {
         phone,
         city,
       },
-      pets,
     },
   });
 };

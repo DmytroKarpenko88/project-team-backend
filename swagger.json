@@ -275,17 +275,6 @@
         "tags": ["User"],
         "summary": "Get user information",
         "security": [{ "Bearer": [] }],
-        "parameters": [
-          {
-            "in": "header",
-            "name": "Authorization",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "default": "Bearer your_token_here"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -550,6 +539,25 @@
           }
         }
       }
+    },
+    "/api/pets/getAll": {
+      "get": {
+        "tags": ["Pets"],
+        "summary": "Getting all pets",
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getAllPetsPesponse"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
 
@@ -689,12 +697,27 @@
                     "example": "Kyiv"
                   }
                 }
-              },
+              }
+            }
+          }
+        }
+      },
+
+      "getAllPetsPesponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
               "pets": {
                 "type": "array",
                 "items": {
                   "type": "object",
                   "properties": {
+                    "_id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
                     "name": {
                       "type": "string",
                       "example": "Archi"
