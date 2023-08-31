@@ -485,9 +485,15 @@
           }
         ],
         "responses": {
-          "204": {
-            "code": 204,
-            "description": "Pet deleted successfully"
+          "200": {
+            "code": 200,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeletePet"
+                }
+              }
+            }
           }
         }
       }
@@ -811,6 +817,19 @@
             "updatedAt": {
               "type": "string"
             }
+          }
+        }
+      },
+      "DeletePet": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "message": {
+            "type": "string",
+            "example": "Pet deleted successfully"
           }
         }
       },
