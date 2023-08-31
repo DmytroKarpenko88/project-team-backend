@@ -199,6 +199,14 @@
         "tags": ["User"],
         "summary": "Delete the notice via User",
         "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "idNotice",
+            "type": "string",
+            "description": "Notice's ID"
+          }
+        ],
         "responses": {
           "204": {
             "description": "Successful operation",
@@ -240,6 +248,14 @@
         "tags": ["User"],
         "summary": "Change a set favorite notices",
         "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "idNotice",
+            "type": "string",
+            "description": "Favorit's ID"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful operation",
