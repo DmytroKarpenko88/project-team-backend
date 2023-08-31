@@ -363,6 +363,14 @@
       "get": {
         "tags": ["Notices"],
         "summary": "Getting one notice by ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "idNotice",
+            "type": "string",
+            "description": "Notice's ID"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -797,7 +805,6 @@
           "name",
           "sex",
           "category",
-          "petURL",
           "location",
           "birthday",
           "type"

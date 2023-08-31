@@ -22,11 +22,14 @@ const storage = new CloudinaryStorage({
     } else {
       folder = 'misc';
     }
-    return {
+
+    const opts = {
       folder: folder,
       allowed_formats: ['jpg', 'png'],
       public_id: path.join(`${originalname}/${id}`),
     };
+
+    return opts;
   },
 });
 
