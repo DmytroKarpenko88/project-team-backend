@@ -1022,24 +1022,41 @@
         }
       },
       "NewsGetAllResponse": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "imgUrl": {
-              "type": "string"
-            },
-            "title": {
-              "type": "string"
-            },
-            "date": {
-              "type": "string"
-            },
-            "url": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "example": 200
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "news": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "imgUrl": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "date": {
+                      "type": "string"
+                    },
+                    "url": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "totalCount": {
+                "type": "integer"
+              }
             }
           }
         }
