@@ -10,10 +10,14 @@ const getAllNews = async (req, res) => {
     throw HttpError(400, 'Not found news');
   }
 
+  const totalCount = await New.countDocuments({});
+  console.log('totalCount:', totalCount);
+
   res.status(200).json({
     code: 200,
     data: {
       news: [...result],
+      totalCount,
     },
   });
 };
