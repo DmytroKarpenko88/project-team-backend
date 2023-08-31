@@ -12,6 +12,8 @@ const ctrl = require('../../controllers/pets');
 
 const { schemas } = require('../../models/pet');
 
+router.get('/getAll', authenticate, ctrl.getAllPets);
+
 router.post(
   '/add',
   authenticate,
