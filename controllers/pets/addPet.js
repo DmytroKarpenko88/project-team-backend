@@ -29,6 +29,8 @@ const addPet = async (req, res) => {
       type,
       petURL,
       describe,
+      _id: result._id,
+      _owner: result._owner,
     },
   });
 };
