@@ -25,7 +25,7 @@ const storage = new CloudinaryStorage({
 
     const opts = {
       folder: folder,
-      allowed_formats: ['jpg', 'png'],
+      allowed_formats: ['jpg', 'png', 'jpeg', 'webp'],
       public_id: path.join(`${originalname}/${id}`),
     };
 
