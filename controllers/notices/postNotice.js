@@ -24,36 +24,27 @@ const postNotice = async (req, res) => {
     ? { ...body, petURL: req.file.path, _owner: _id }
     : { ...body, _owner: _id };
 
-  const {_id: idNewNotice} = await Notice.create(data);
+  const dataNotice = await Notice.create(data);
 
-  const {
-    name,
-    title,
-    sex,
-    category,
-    petURL,
-    location,
-    price,
-    birthday,
-    type,
-    describe,
-  } = data;
+  console.log('dataNotice: ', dataNotice);
+
+  const dataResponse = {
+    _id: dataNotice._id,
+    title: dataNotice.title,
+    name: dataNotice.name,
+    sex: dataNotice.sex,
+    category: dataNotice.category,
+    petURL: dataNotice.petURL,
+    location: dataNotice.location,
+    price: dataNotice.price,
+    birthday: dataNotice.birthday,
+    type: dataNotice.type,
+    describe: dataNotice.describe,
+  };
 
   res.status(201).json({
     code: 201,
-    data: {
-      _id: idNewNotice,
-      name,
-      title,
-      sex,
-      category,
-      petURL,
-      location,
-      price,
-      birthday,
-      type,
-      describe,
-    },
+    data: dataResponse,
   });
 };
 
