@@ -24,7 +24,7 @@ const postNotice = async (req, res) => {
     ? { ...body, petURL: req.file.path, _owner: _id }
     : { ...body, _owner: _id };
 
-  await Notice.create(data);
+  const {_id: idNewNotice} = await Notice.create(data);
 
   const {
     name,
@@ -42,6 +42,7 @@ const postNotice = async (req, res) => {
   res.status(201).json({
     code: 201,
     data: {
+      _id: idNewNotice,
       name,
       title,
       sex,
